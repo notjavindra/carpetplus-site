@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CarpetMod+ — fake players for Minecraft</title>
+	<meta name="description" content="CarpetMod+ is a Fabric mod for Minecraft 1.21 and 1.21.11. Bots that mine, build up, craft, smelt, enchant, and find their way around.">
+	<meta property="og:title" content="CarpetMod+">
+	<meta property="og:description" content="Bots that mine, build, craft, and walk around. For Minecraft 1.21 and 1.21.11.">
+	<meta property="og:type" content="website">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=Outfit:wght@340;420;520;640&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/site.css">
+	<script>
+		try {
+			var theme = localStorage.getItem("carpetplus-theme");
+			if (theme) document.documentElement.setAttribute("data-theme", theme);
+			var motion = localStorage.getItem("carpetplus-motion");
+			if (motion === "off") document.documentElement.setAttribute("data-motion", "off");
+			var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			if (motion !== "off" && (!reduce || motion === "on")) {
+				document.documentElement.setAttribute("data-type", "on");
+			}
+		} catch (e) {}
+	</script>
+</head>
+<body>
+	<a class="skip" href="#top">Skip to content</a>
+	<div class="atmosphere" aria-hidden="true"></div>
+
+	<header class="nav">
+		<a class="brand" href="#top">
+			<span class="mark" aria-hidden="true"></span>
+			<span>CarpetMod+</span>
+		</a>
+		<nav class="links" id="site-links" aria-label="Site">
+			<a href="#features">Features</a>
+			<a href="#gallery">Gallery</a>
+			<a href="#commands">Commands</a>
+			<a href="#download">Download</a>
+			<a href="#settings">Settings</a>
+		</nav>
+		<div class="nav-actions">
+			<span class="btn btn-solid btn-soon">Coming Soon...</span>
+			<button class="menu" type="button" aria-expanded="false" aria-controls="site-links">
+				<span class="menu-bars" aria-hidden="true"></span>
+				<span class="visually-hidden">Menu</span>
+			</button>
+		</div>
+	</header>
+
+	<main id="top">
+		<section class="hero">
+			<div class="hero-copy">
+				<p class="kicker">Fabric mod</p>
+				<h1 class="headline">
+					<span class="headline-ghost" aria-hidden="true">Bots that mine, craft, and walk for you.<span class="caret-space"></span></span>
+					<span class="typed" aria-hidden="true"></span>
+					<span class="visually-hidden">Bots that mine, craft, and walk for you.</span>
+				</h1>
+				<p class="lede">CarpetMod+ is a Fabric add-on for Carpet. You spawn a fake player and tell them what to do. If the block is too high to reach, they build up to it. If they don't have any blocks, they go mine some dirt or stone first.</p>
+				<ul class="pills">
+					<li>Minecraft 1.21</li>
+					<li>Minecraft 1.21.11</li>
+				</ul>
+				<div class="cta">
+					<span class="btn btn-solid btn-soon">Coming Soon...</span>
+					<a class="btn btn-ghost" href="https://discord.gg/jFDACu7ZBE">Discord</a>
+				</div>
+			</div>
+			<aside class="console" aria-label="Example commands">
+				<div class="console-top">
+					<span></span><span></span><span></span>
+					<p>carpetplus</p>
+				</div>
+				<pre><code><span class="prompt">/</span>player Alex mine diamond_ore continuous
+<span class="prompt">/</span>player Alex walk 120 64 -40
+<span class="prompt">/</span>player Alex craft crafting_table once
+<span class="prompt">/</span>carpetmodsetting pathfind true</code></pre>
+			</aside>
+		</section>
+
+		<section class="band" id="features">
+			<div class="section-head">
+				<p class="kicker">What it can do</p>
+				<h2>Stuff the bots can do.</h2>
+			</div>
+			<div class="bento">
+				<article class="card card-wide">
+					<p class="card-label">Mining</p>
+					<h3>They pillar up to reach high blocks.</h3>
+					<p>If they're standing close enough, the block breaks right away. What drops still depends on the tool in their hand. When the ore is above them, they build up to it instead of jumping and swinging. If they have nothing to place, they mine some stone, dirt, or cobble nearby, pick it up, and then pillar.</p>
+				</article>
+				<article class="card">
+					<p class="card-label">Craft and smelt</p>
+					<h3>They craft and smelt, then pack up.</h3>
+					<p>You can type <code>diamond</code> or <code>minecraft:diamond</code>. A one-time job runs the whole recipe right then. If the bot placed the crafting table or furnace, they break it when they're done. Smelting still uses fuel.</p>
+				</article>
+				<article class="card">
+					<p class="card-label">Enchant and anvil</p>
+					<h3>Enchanting tables and anvils work too.</h3>
+					<p>Enchanting costs lapis and levels. If the bot placed the table, they break it after a one-time enchant. The anvil uses the item they're holding, plus a book or another item. In creative they skip the XP cost, and they still use the materials.</p>
+				</article>
+				<article class="card card-wide">
+					<p class="card-label">Pathfinding</p>
+					<h3>They can get around walls, lava, and drops.</h3>
+					<p>PathFind starts off on a new world, and the world remembers if you turn it on. With it on, walking forward or to coordinates goes around blocks. They can bridge over lava and hop down short drops. In creative they fly. While they're placing a build, that flight stays slow and steady.</p>
+				</article>
+				<article class="card">
+					<p class="card-label">Ghosts</p>
+					<h3>A ghost that can replay what you did.</h3>
+					<p><code>/gost</code> spawns a ghost for a player. Nobody can push them, and they don't shove other players. You can record someone, then play that back on the ghost.</p>
+				</article>
+				<article class="card">
+					<p class="card-label">Inventory and skins</p>
+					<h3>Check their inventory, or change the skin.</h3>
+					<p><code>invsee</code> lets you put items in the hotbar, armor, and offhand. For the skin, copy another player, or fill the whole thing with a color like black, red, or blue.</p>
+				</article>
+				<article class="card">
+					<p class="card-label">Boats and items</p>
+					<h3>They can row a boat, and items can have cooldowns.</h3>
+					<p>In a boat, move forward, back, left, and right rows it. On the ground, those same commands just walk. <code>/item give</code> gives an item that goes on cooldown when it's used, like an ender pearl.</p>
+				</article>
+				<article class="card">
+					<p class="card-label">World settings</p>
+					<h3>Each world keeps its own settings.</h3>
+					<p>With StunShield on, disabling someone's shield pops them up about a block. Team protection keeps teammates from hurting each other. PathFind and StunShield both stay saved on that world.</p>
+				</article>
+			</div>
+			<ul class="more">
+				<li>Look at a nearby block, up to 64 blocks away</li>
+				<li>Build nether portals and schematics</li>
+				<li>Write books, use spears, summon pets, and play voice lines</li>
+				<li>Choose how many chunks a player loads or can see</li>
+				<li>Scoreboards for mace hits, falling, elytra distance, and player damage</li>
+			</ul>
+		</section>
+
+		<section class="band" id="gallery">
+			<div class="section-head">
+				<p class="kicker">Gallery</p>
+				<h2>A few shots from the mod.</h2>
+			</div>
+			<div class="gallery">
+				<article class="shot">
+					<button type="button" class="shot-open" aria-label="Open Some Commands">
+						<img src="images/commands.png" alt="Chat suggestions for CarpetMod+ commands, including attack, blocklook, build, collect, and coords.">
+					</button>
+					<div class="shot-body">
+						<h3>Some Commands</h3>
+						<p>Little SneakPeak</p>
+						<time datetime="2026-10-05">October 5, 2026</time>
+					</div>
+				</article>
+				<article class="shot">
+					<button type="button" class="shot-open" aria-label="Open MainHand Changer">
+						<img src="images/mainhand.png" alt="Alex holding a diamond sword in the left hand.">
+					</button>
+					<div class="shot-body">
+						<h3>MainHand Changer</h3>
+						<p>the Bot can now be a Left Hand<br>When using /player alex mainhand left</p>
+						<time datetime="2026-10-05">October 5, 2026</time>
+					</div>
+				</article>
+				<article class="shot">
+					<button type="button" class="shot-open" aria-label="Open Bot Can Use Spears">
+						<img src="images/spear.png" alt="Alex holding a spear out in a field.">
+					</button>
+					<div class="shot-body">
+						<h3>Bot Can Use Spears</h3>
+						<p>Using /player spear mode 3</p>
+						<time datetime="2026-10-05">October 5, 2026</time>
+					</div>
+				</article>
+			</div>
+		</section>
+
+		<section class="band" id="commands">
+			<div class="section-head">
+				<p class="kicker">Commands</p>
+				<h2>Some commands to start with.</h2>
+				<p class="section-note">Type <code>/carpetplushelp</code> in game if you want every command.</p>
+			</div>
+			<div class="command-grid">
+				<article>
+					<h3>Bots</h3>
+					<ul class="cmds">
+						<li><code>/player Alex mine diamond_ore continuous</code></li>
+						<li><code>/player Alex collect diamond once</code></li>
+						<li><code>/player Alex craft torch once</code></li>
+						<li><code>/player Alex smelt iron_ingot once</code></li>
+						<li><code>/player Alex enchant sharpness 5 once</code></li>
+						<li><code>/player Alex anvil mending once</code></li>
+						<li><code>/player Alex walk 10 64 10</code></li>
+						<li><code>/player Alex blocklook cobweb 16</code></li>
+						<li><code>/player Alex skin black</code></li>
+						<li><code>/player Alex invsee</code></li>
+					</ul>
+				</article>
+				<article>
+					<h3>World and items</h3>
+					<ul class="cmds">
+						<li><code>/carpetmodsetting pathfind true</code></li>
+						<li><code>/carpetmodsetting stunshield true</code></li>
+						<li><code>/team protection red true</code></li>
+						<li><code>/item give @a ender_pearl 20</code></li>
+						<li><code>/gost Alex spawn</code></li>
+						<li><code>/gost Alex replay</code></li>
+						<li><code>/player Alex build NetherPortal</code></li>
+						<li><code>/carpetplushelp</code></li>
+					</ul>
+				</article>
+			</div>
+		</section>
+
+		<section class="band download" id="download">
+			<div>
+				<p class="kicker">Download</p>
+				<h2>For Minecraft 1.21 and 1.21.11.</h2>
+				<p class="lede">You'll need Fabric Loader and Fabric API. Carpet is already inside the jar, so don't drop in a second Carpet mod or the two will clash. Voice chat is there if you want it. The Modrinth page isn't up yet.</p>
+				<div class="cta">
+					<span class="btn btn-solid btn-soon">Coming Soon...</span>
+					<a class="btn btn-ghost" href="https://discord.gg/jFDACu7ZBE">Hop on Discord</a>
+				</div>
+			</div>
+			<dl class="facts">
+				<div>
+					<dt>Minecraft</dt>
+					<dd>1.21 and 1.21.11</dd>
+				</div>
+				<div>
+					<dt>Loader</dt>
+					<dd>Fabric</dd>
+				</div>
+				<div>
+					<dt>Latest jar</dt>
+					<dd>1.15.0</dd>
+				</div>
+				<div>
+					<dt>Authors</dt>
+					<dd>Javinplayz and Jayden077639</dd>
+				</div>
+			</dl>
+		</section>
+
+		<section class="band" id="settings">
+			<div class="section-head">
+				<p class="kicker">Settings</p>
+				<h2>Change the look of this page.</h2>
+				<p class="section-note">Your pick is saved in this browser. It only changes the website.</p>
+			</div>
+			<div class="theme-grid">
+				<button type="button" class="theme-card" data-theme-choice="dark">
+					<span class="swatch swatch-dark" aria-hidden="true"></span>
+					<span>
+						<strong>Dark</strong>
+						<small>Black and green</small>
+					</span>
+				</button>
+				<button type="button" class="theme-card" data-theme-choice="light">
+					<span class="swatch swatch-light" aria-hidden="true"></span>
+					<span>
+						<strong>Light</strong>
+						<small>White and green</small>
+					</span>
+				</button>
+				<button type="button" class="theme-card" data-theme-choice="green">
+					<span class="swatch swatch-green" aria-hidden="true"></span>
+					<span>
+						<strong>Green</strong>
+						<small>Lots of green</small>
+					</span>
+				</button>
+				<button type="button" class="theme-card" data-theme-choice="gold">
+					<span class="swatch swatch-gold" aria-hidden="true"></span>
+					<span>
+						<strong>Gold</strong>
+						<small>Warm gold</small>
+					</span>
+				</button>
+				<button type="button" class="theme-card" data-theme-choice="dusk">
+					<span class="swatch swatch-dusk" aria-hidden="true"></span>
+					<span>
+						<strong>Dusk</strong>
+						<small>Night blue</small>
+					</span>
+				</button>
+			</div>
+			<div class="motion-row">
+				<div>
+					<h3>Motion</h3>
+					<p>Page fades, or keep it still.</p>
+				</div>
+				<div class="segmented" role="group" aria-label="Motion">
+					<button type="button" data-motion="on">Smooth</button>
+					<button type="button" data-motion="off">Still</button>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<dialog class="lightbox" id="lightbox">
+		<button type="button" class="lightbox-close">Close</button>
+		<img alt="">
+	</dialog>
+
+	<footer class="foot">
+		<p>CarpetMod+ by Javinplayz and Jayden077639.</p>
+		<p class="fine">Not an official Minecraft service. Not approved by or associated with Mojang or Microsoft.</p>
+		<p class="foot-links">
+			<span class="soon-link">Coming Soon...</span>
+			<a href="https://discord.gg/jFDACu7ZBE">Discord</a>
+			<a href="#settings">Settings</a>
+		</p>
+	</footer>
+	<script src="js/site.js"></script>
+</body>
+</html>
