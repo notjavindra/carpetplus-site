@@ -3,10 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>CarpetMod+ — fake players for Minecraft</title>
-	<meta name="description" content="CarpetMod+ is a Fabric mod for Minecraft 1.21 and 1.21.11. Bots that mine, build up, craft, smelt, enchant, and find their way around.">
-	<meta property="og:title" content="CarpetMod+">
-	<meta property="og:description" content="Bots that mine, build, craft, and walk around. For Minecraft 1.21 and 1.21.11.">
+	<title>CarpetMod+ Beta — fake players for Minecraft</title>
+	<meta name="description" content="CarpetMod+ Beta is a Fabric mod for Minecraft 1.21.11. Bots that mine, build up, craft, smelt, enchant, and find their way around.">
+	<meta property="og:title" content="CarpetMod+ Beta">
+	<meta property="og:description" content="Bots that mine, build, craft, and walk around. For Minecraft 1.21.11.">
 	<meta property="og:type" content="website">
 	<link rel="icon" href="favicon.svg" type="image/svg+xml">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 	<header class="nav">
 		<a class="brand" href="#top">
 			<span class="mark" aria-hidden="true"></span>
-			<span>CarpetMod+</span>
+			<span>CarpetMod+ Beta</span>
 		</a>
 		<nav class="links" id="site-links" aria-label="Site">
 			<a href="#features">Features</a>
@@ -43,7 +43,7 @@
 			<a href="#settings">Settings</a>
 		</nav>
 		<div class="nav-actions">
-			<a class="btn btn-solid" href="downloads/CarpetMod-Plus-1.24.0.jar" download>Download beta</a>
+			<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.jar" download="Carpet+BetaV2.jar">Download beta</a>
 			<button class="menu" type="button" aria-expanded="false" aria-controls="site-links">
 				<span class="menu-bars" aria-hidden="true"></span>
 				<span class="visually-hidden">Menu</span>
@@ -54,19 +54,19 @@
 	<main id="top">
 		<section class="hero">
 			<div class="hero-copy">
-				<p class="kicker">Fabric mod</p>
+				<p class="kicker">Fabric mod · Beta</p>
 				<h1 class="headline">
 					<span class="headline-ghost" aria-hidden="true">Bots that mine, craft, and walk for you.<span class="caret-space"></span></span>
 					<span class="typed" aria-hidden="true"></span>
 					<span class="visually-hidden">Bots that mine, craft, and walk for you.</span>
 				</h1>
-				<p class="lede">CarpetMod+ is a Fabric add-on for Carpet. You spawn a fake player and tell them what to do. If the block is too high to reach, they build up to it. If they don't have any blocks, they go mine some dirt or stone first.</p>
+				<p class="lede">CarpetMod+ Beta is a Fabric add-on for Carpet. You spawn a fake player and tell them what to do. If the block is too high to reach, they build up to it. If they don't have any blocks, they go mine some dirt or stone first. Ghosts come from <code>/gost</code>. A normal <code>/player</code> spawn stays a regular bot.</p>
 				<ul class="pills">
-					<li>Minecraft 1.21</li>
 					<li>Minecraft 1.21.11</li>
+					<li>Fabric</li>
 				</ul>
 				<div class="cta">
-					<a class="btn btn-solid" href="downloads/CarpetMod-Plus-1.24.0.jar" download>Download beta</a>
+					<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.jar" download="Carpet+BetaV2.jar">Download beta</a>
 					<a class="btn btn-ghost" href="https://discord.gg/jFDACu7ZBE">Discord</a>
 				</div>
 			</div>
@@ -77,8 +77,8 @@
 				</div>
 				<pre><code><span class="prompt">/</span>player Alex mine diamond_ore continuous
 <span class="prompt">/</span>player Alex walk 120 64 -40
-<span class="prompt">/</span>player Alex craft crafting_table once
-<span class="prompt">/</span>carpetmodsetting pathfind true</code></pre>
+<span class="prompt">/</span>player Alex attack 5s once
+<span class="prompt">/</span>view Alex</code></pre>
 			</aside>
 		</section>
 
@@ -111,7 +111,7 @@
 				<article class="card">
 					<p class="card-label">Ghosts</p>
 					<h3>A ghost that can replay what you did.</h3>
-					<p><code>/gost</code> spawns a ghost for a player. Nobody can push them, and they don't shove other players. You can record someone, then play that back on the ghost.</p>
+					<p><code>/gost</code> spawns a ghost for a player. Nobody can push them, and they don't shove other players. You can record someone, then play that back on the ghost. <code>/player Steve spawn in survival</code> is a normal bot.</p>
 				</article>
 				<article class="card">
 					<p class="card-label">Inventory and skins</p>
@@ -132,6 +132,10 @@
 			<ul class="more">
 				<li>Look at a nearby block, up to 64 blocks away</li>
 				<li>Build nether portals and schematics</li>
+				<li>Watch someone with <code>/view</code> and see their hearts, hunger, and hotbar</li>
+				<li>Open <code>/player</code> stats and hover the armor on the stand</li>
+				<li>Run a command when someone says a phrase in voice chat</li>
+				<li>Swing once after 5 seconds, 5 minutes, or 5 hours</li>
 				<li>Write books, use spears, summon pets, and play voice lines</li>
 				<li>Choose how many chunks a player loads or can see</li>
 				<li>Scoreboards for mace hits, falling, elytra distance, and player damage</li>
@@ -194,7 +198,9 @@
 						<li><code>/player Alex enchant sharpness 5 once</code></li>
 						<li><code>/player Alex anvil mending once</code></li>
 						<li><code>/player Alex walk 10 64 10</code></li>
-						<li><code>/player Alex blocklook cobweb 16</code></li>
+						<li><code>/player Alex attack 5s once</code></li>
+						<li><code>/player Alex stats</code></li>
+						<li><code>/view Alex</code></li>
 						<li><code>/player Alex skin black</code></li>
 						<li><code>/player Alex invsee</code></li>
 					</ul>
@@ -208,6 +214,7 @@
 						<li><code>/item give @a ender_pearl 20</code></li>
 						<li><code>/gost Alex spawn</code></li>
 						<li><code>/gost Alex replay</code></li>
+						<li><code>/execute if Voice_Chat hello 16</code></li>
 						<li><code>/player Alex build NetherPortal</code></li>
 						<li><code>/data get entity Alex</code></li>
 						<li><code>/carpetplushelp</code></li>
@@ -219,17 +226,17 @@
 		<section class="band download" id="download">
 			<div>
 				<p class="kicker">Download</p>
-				<h2>For Minecraft 1.21 and 1.21.11.</h2>
-				<p class="lede">You'll need Fabric Loader and Fabric API. This jar already includes Carpet and Modify Player Data. Voice chat is optional. The Modrinth page isn't up yet. This file is the 1.24.0 beta.</p>
+				<h2>For Minecraft 1.21.11.</h2>
+				<p class="lede">You'll need Fabric Loader and Fabric API. This jar already includes Carpet and Modify Player Data. Voice chat is optional, and the voice-word check uses it. The Modrinth page isn't up yet. This file is Carpet+BetaV2.</p>
 				<div class="cta">
-					<a class="btn btn-solid" href="downloads/CarpetMod-Plus-1.24.0.jar" download>Download beta</a>
+					<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.jar" download="Carpet+BetaV2.jar">Download beta</a>
 					<a class="btn btn-ghost" href="https://discord.gg/jFDACu7ZBE">Hop on Discord</a>
 				</div>
 			</div>
 			<dl class="facts">
 				<div>
 					<dt>Minecraft</dt>
-					<dd>1.21 and 1.21.11</dd>
+					<dd>1.21.11</dd>
 				</div>
 				<div>
 					<dt>Loader</dt>
@@ -237,7 +244,7 @@
 				</div>
 				<div>
 					<dt>Latest jar</dt>
-					<dd>1.24.0</dd>
+					<dd>Carpet+BetaV2</dd>
 				</div>
 				<div>
 					<dt>Authors</dt>
@@ -308,10 +315,10 @@
 	</dialog>
 
 	<footer class="foot">
-		<p>CarpetMod+ by Javinplayz and Jayden077639.</p>
+		<p>CarpetMod+ Beta by Javinplayz and Jayden077639.</p>
 		<p class="fine">Not an official Minecraft service. Not approved by or associated with Mojang or Microsoft.</p>
 		<p class="foot-links">
-			<a href="downloads/CarpetMod-Plus-1.24.0.jar" download>Download beta</a>
+			<a href="downloads/Carpet%2BBetaV2.jar" download="Carpet+BetaV2.jar">Download beta</a>
 			<a href="https://discord.gg/jFDACu7ZBE">Discord</a>
 			<a href="#settings">Settings</a>
 		</p>
