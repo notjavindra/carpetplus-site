@@ -275,6 +275,7 @@ a { color: inherit; }
 	line-height: 0.9;
 	letter-spacing: -0.05em;
 	font-variant-numeric: tabular-nums;
+	min-height: 0.9em;
 }
 
 .live-count.tick {

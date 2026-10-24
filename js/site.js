@@ -159,22 +159,41 @@
 		var streamUrl = "https://abacus.jasoncameron.dev/stream/notjavindra.github.io/carpetplus-beta-downloads";
 
 		function paintLive(value) {
-			if (typeof value !== "number") return;
+			if (typeof value !== "number" || value < 0) return;
 			var next = String(value);
+			try { localStorage.setItem("carpetplus-download-count", next); } catch (e) {}
 			if (liveCount.textContent === next) return;
+			var first = liveCount.textContent === "";
 			liveCount.textContent = next;
+			if (first) return;
 			liveCount.classList.remove("tick");
 			void liveCount.offsetWidth;
 			liveCount.classList.add("tick");
 		}
 
-		fetch(countUrl, { cache: "no-store" }).then(function (response) {
-			if (response.status === 404) return { value: 0 };
-			if (!response.ok) throw new Error("count");
-			return response.json();
-		}).then(function (data) {
-			if (data && typeof data.value === "number") paintLive(data.value);
-		}).catch(function () {});
+		function readCount() {
+			return fetch(countUrl, { cache: "no-store" }).then(function (response) {
+				if (!response.ok) throw new Error("count");
+				return response.json();
+			}).then(function (data) {
+				if (!data || typeof data.value !== "number") throw new Error("count");
+				paintLive(data.value);
+			});
+		}
+
+		function loadCount(useShared) {
+			var job = useShared && window.carpetplusCountReady
+				? window.carpetplusCountReady.then(function (value) {
+					if (typeof value !== "number") throw new Error("count");
+					paintLive(value);
+				})
+				: readCount();
+			job.catch(function () {
+				window.setTimeout(function () { loadCount(false); }, 2000);
+			});
+		}
+
+		loadCount(true);
 
 		var source = new EventSource(streamUrl);
 		source.onmessage = function (event) {

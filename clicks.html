@@ -21,6 +21,14 @@
 				document.documentElement.setAttribute("data-type", "on");
 			}
 		} catch (e) {}
+		window.carpetplusCountReady = fetch("https://abacus.jasoncameron.dev/get/notjavindra.github.io/carpetplus-beta-downloads", { cache: "no-store" }).then(function (response) {
+			if (!response.ok) throw new Error("count");
+			return response.json();
+		}).then(function (data) {
+			if (!data || typeof data.value !== "number") throw new Error("count");
+			try { localStorage.setItem("carpetplus-download-count", String(data.value)); } catch (e) {}
+			return data.value;
+		});
 	</script>
 </head>
 <body>
@@ -54,7 +62,13 @@
 			<p class="kicker">Clicks</p>
 			<h1>Download beta</h1>
 			<p class="lede">How many times the download button has been clicked. Leave this page open and the number moves on its own.</p>
-			<p class="live-count" id="live-count" aria-live="polite">0</p>
+			<p class="live-count" id="live-count" aria-live="polite"></p>
+			<script>
+				try {
+					var savedClicks = localStorage.getItem("carpetplus-download-count");
+					if (savedClicks) document.getElementById("live-count").textContent = savedClicks;
+				} catch (e) {}
+			</script>
 			<p class="live-status"><span class="live-dot" aria-hidden="true"></span> Live</p>
 		</section>
 	</main>
@@ -68,6 +82,6 @@
 			<a href="index.html#settings">Settings</a>
 		</p>
 	</footer>
-	<script src="js/site.js"></script>
+	<script src="js/site.js?v=4"></script>
 </body>
 </html>
