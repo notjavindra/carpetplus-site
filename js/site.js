@@ -144,5 +144,38 @@
 		}
 	}
 
+	var downloadCountNodes = document.querySelectorAll("[data-download-count]");
+	var downloadCountUrl = "https://abacus.jasoncameron.dev/get/notjavindra.github.io/carpetplus-beta-downloads";
+	var downloadHitUrl = "https://abacus.jasoncameron.dev/hit/notjavindra.github.io/carpetplus-beta-downloads";
+	var downloadClicked = false;
+
+	function paintDownloadCount(value) {
+		var text = String(value);
+		downloadCountNodes.forEach(function (node) {
+			node.textContent = text;
+		});
+	}
+
+	fetch(downloadCountUrl, { cache: "no-store" }).then(function (response) {
+		if (response.status === 404) return { value: 0 };
+		if (!response.ok) throw new Error("count");
+		return response.json();
+	}).then(function (data) {
+		if (!downloadClicked && data && typeof data.value === "number") paintDownloadCount(data.value);
+	}).catch(function () {});
+
+	document.querySelectorAll("a[download]").forEach(function (link) {
+		link.addEventListener("click", function () {
+			downloadClicked = true;
+			var current = Number(downloadCountNodes[0] ? downloadCountNodes[0].textContent : 0);
+			if (!Number.isNaN(current)) paintDownloadCount(current + 1);
+			fetch(downloadHitUrl, { cache: "no-store", keepalive: true }).then(function (response) {
+				return response.json();
+			}).then(function (data) {
+				if (data && typeof data.value === "number") paintDownloadCount(data.value);
+			}).catch(function () {});
+		});
+	});
+
 	paint();
 })();
