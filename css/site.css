@@ -267,16 +267,46 @@ a { color: inherit; }
 	box-shadow: 0 14px 28px var(--glow);
 }
 
-.btn-count {
-	margin-left: 8px;
-	min-width: 1.5em;
-	padding: 1px 7px;
-	border-radius: 999px;
-	background: color-mix(in srgb, var(--accent-ink) 16%, transparent);
+.live-count {
+	margin: 8px 0 12px;
+	font-family: var(--display);
+	font-weight: 560;
+	font-size: clamp(4.8rem, 14vw, 8.4rem);
+	line-height: 0.9;
+	letter-spacing: -0.05em;
 	font-variant-numeric: tabular-nums;
-	font-size: 0.86em;
-	line-height: 1.4;
-	text-align: center;
+}
+
+.live-count.tick {
+	animation: count-tick 0.35s var(--ease);
+}
+
+.live-status {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+	color: var(--muted);
+}
+
+.live-dot {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--accent);
+	box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 50%, transparent);
+	animation: live-pulse 1.8s var(--ease) infinite;
+}
+
+.links a[aria-current="page"] { color: var(--accent); }
+
+@keyframes count-tick {
+	50% { transform: translateY(-6px); }
+}
+
+@keyframes live-pulse {
+	70% { box-shadow: 0 0 0 8px transparent; }
+	100% { box-shadow: 0 0 0 0 transparent; }
 }
 
 .btn-soon {

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Clicks — CarpetMod+ Beta</title>
+	<meta name="description" content="How many times the CarpetMod+ Beta download button has been clicked.">
+	<link rel="icon" href="favicon.svg" type="image/svg+xml">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=Outfit:wght@340;420;520;640&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/site.css">
+	<script>
+		try {
+			var theme = localStorage.getItem("carpetplus-theme");
+			if (theme) document.documentElement.setAttribute("data-theme", theme);
+			var motion = localStorage.getItem("carpetplus-motion");
+			if (motion === "off") document.documentElement.setAttribute("data-motion", "off");
+			var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+			if (motion !== "off" && (!reduce || motion === "on")) {
+				document.documentElement.setAttribute("data-type", "on");
+			}
+		} catch (e) {}
+	</script>
+</head>
+<body>
+	<a class="skip" href="#top">Skip to content</a>
+	<div class="atmosphere" aria-hidden="true"></div>
+
+	<header class="nav">
+		<a class="brand" href="index.html">
+			<span class="mark" aria-hidden="true"></span>
+			<span>CarpetMod+ Beta</span>
+		</a>
+		<nav class="links" id="site-links" aria-label="Site">
+			<a href="index.html#features">Features</a>
+			<a href="index.html#gallery">Gallery</a>
+			<a href="index.html#commands">Commands</a>
+			<a href="index.html#download">Download</a>
+			<a href="clicks.html" aria-current="page">Clicks</a>
+			<a href="index.html#settings">Settings</a>
+		</nav>
+		<div class="nav-actions">
+			<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.jar" download="Carpet+BetaV2.jar">Download beta</a>
+			<button class="menu" type="button" aria-expanded="false" aria-controls="site-links">
+				<span class="menu-bars" aria-hidden="true"></span>
+				<span class="visually-hidden">Menu</span>
+			</button>
+		</div>
+	</header>
+
+	<main id="top">
+		<section class="band">
+			<p class="kicker">Clicks</p>
+			<h1>Download beta</h1>
+			<p class="lede">How many times the download button has been clicked. Leave this page open and the number moves on its own.</p>
+			<p class="live-count" id="live-count" aria-live="polite">0</p>
+			<p class="live-status"><span class="live-dot" aria-hidden="true"></span> Live</p>
+		</section>
+	</main>
+
+	<footer class="foot">
+		<p>CarpetMod+ Beta by Javinplayz and Jayden077639.</p>
+		<p class="fine">Not an official Minecraft service. Not approved by or associated with Mojang or Microsoft.</p>
+		<p class="foot-links">
+			<a href="index.html#download">Download</a>
+			<a href="https://discord.gg/jFDACu7ZBE">Discord</a>
+			<a href="index.html#settings">Settings</a>
+		</p>
+	</footer>
+	<script src="js/site.js"></script>
+</body>
+</html>

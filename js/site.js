@@ -144,38 +144,46 @@
 		}
 	}
 
-	var downloadCountNodes = document.querySelectorAll("[data-download-count]");
-	var downloadCountUrl = "https://abacus.jasoncameron.dev/get/notjavindra.github.io/carpetplus-beta-downloads";
-	var downloadHitUrl = "https://abacus.jasoncameron.dev/hit/notjavindra.github.io/carpetplus-beta-downloads";
-	var downloadClicked = false;
-
-	function paintDownloadCount(value) {
-		var text = String(value);
-		downloadCountNodes.forEach(function (node) {
-			node.textContent = text;
-		});
-	}
-
-	fetch(downloadCountUrl, { cache: "no-store" }).then(function (response) {
-		if (response.status === 404) return { value: 0 };
-		if (!response.ok) throw new Error("count");
-		return response.json();
-	}).then(function (data) {
-		if (!downloadClicked && data && typeof data.value === "number") paintDownloadCount(data.value);
-	}).catch(function () {});
-
 	document.querySelectorAll("a[download]").forEach(function (link) {
 		link.addEventListener("click", function () {
-			downloadClicked = true;
-			var current = Number(downloadCountNodes[0] ? downloadCountNodes[0].textContent : 0);
-			if (!Number.isNaN(current)) paintDownloadCount(current + 1);
-			fetch(downloadHitUrl, { cache: "no-store", keepalive: true }).then(function (response) {
-				return response.json();
-			}).then(function (data) {
-				if (data && typeof data.value === "number") paintDownloadCount(data.value);
+			fetch("https://abacus.jasoncameron.dev/hit/notjavindra.github.io/carpetplus-beta-downloads", {
+				cache: "no-store",
+				keepalive: true
 			}).catch(function () {});
 		});
 	});
+
+	var liveCount = document.getElementById("live-count");
+	if (liveCount) {
+		var countUrl = "https://abacus.jasoncameron.dev/get/notjavindra.github.io/carpetplus-beta-downloads";
+		var streamUrl = "https://abacus.jasoncameron.dev/stream/notjavindra.github.io/carpetplus-beta-downloads";
+
+		function paintLive(value) {
+			if (typeof value !== "number") return;
+			var next = String(value);
+			if (liveCount.textContent === next) return;
+			liveCount.textContent = next;
+			liveCount.classList.remove("tick");
+			void liveCount.offsetWidth;
+			liveCount.classList.add("tick");
+		}
+
+		fetch(countUrl, { cache: "no-store" }).then(function (response) {
+			if (response.status === 404) return { value: 0 };
+			if (!response.ok) throw new Error("count");
+			return response.json();
+		}).then(function (data) {
+			if (data && typeof data.value === "number") paintLive(data.value);
+		}).catch(function () {});
+
+		var source = new EventSource(streamUrl);
+		source.onmessage = function (event) {
+			try {
+				var data = JSON.parse(event.data);
+				if (data && typeof data.value === "number") paintLive(data.value);
+			} catch (e) {}
+		};
+	}
 
 	paint();
 })();
