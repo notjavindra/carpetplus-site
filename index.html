@@ -44,7 +44,7 @@
 			<a href="#settings">Settings</a>
 		</nav>
 		<div class="nav-actions">
-			<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.9.jar" download="Carpet+BetaV2.9.jar">Download beta</a>
+			<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.10.jar" download="Carpet+BetaV2.10.jar">Download beta</a>
 			<button class="menu" type="button" aria-expanded="false" aria-controls="site-links">
 				<span class="menu-bars" aria-hidden="true"></span>
 				<span class="visually-hidden">Menu</span>
@@ -61,13 +61,13 @@
 					<span class="typed" aria-hidden="true"></span>
 					<span class="visually-hidden">Bots that mine, craft, and walk for you.</span>
 				</h1>
-				<p class="lede">CarpetMod+ Beta is a Fabric add-on for Carpet. You spawn a fake player and tell them what to do. If the block is too high to reach, they build up to it. If they don't have any blocks, they go mine some dirt or stone first. Ghosts come from <code>/gost</code>. A normal <code>/player</code> spawn stays a regular bot.</p>
+				<p class="lede">CarpetMod+ Beta is a Fabric add-on for Carpet. You spawn a fake player and tell them what to do. If the block is too high to reach, they build up to it. If they don't have any blocks, they go mine some dirt or stone first. Ghosts come from <code>/ghost</code>. A normal <code>/player</code> spawn stays a regular bot.</p>
 				<ul class="pills">
 					<li>Minecraft 1.21.11</li>
 					<li>Fabric</li>
 				</ul>
 				<div class="cta">
-					<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.9.jar" download="Carpet+BetaV2.9.jar">Download beta</a>
+					<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.10.jar" download="Carpet+BetaV2.10.jar">Download beta</a>
 					<a class="btn btn-ghost" href="https://discord.gg/jFDACu7ZBE">Discord</a>
 				</div>
 			</div>
@@ -112,7 +112,7 @@
 				<article class="card">
 					<p class="card-label">Ghosts</p>
 					<h3>A ghost that can replay what you did.</h3>
-					<p><code>/gost</code> spawns a ghost for a player. Nobody can push them, and they don't shove other players. You can record someone, then play that back on the ghost. <code>/player Steve spawn in survival</code> is a normal bot.</p>
+					<p><code>/ghost</code> spawns a ghost for a player. Nobody can push them, and they don't shove other players. You can record someone, then play that back on the ghost. When a ghost leaves, chat says they have been removed. <code>/player Steve spawn in survival</code> is a normal bot.</p>
 				</article>
 				<article class="card">
 					<p class="card-label">Inventory and skins</p>
@@ -122,7 +122,7 @@
 				<article class="card">
 					<p class="card-label">Boats and items</p>
 					<h3>They can row a boat, and items can have cooldowns.</h3>
-					<p>In a boat, move forward, back, left, and right rows it. On the ground, those same commands just walk. <code>/item give</code> gives an item that goes on cooldown when it's used, like an ender pearl.</p>
+					<p>In a boat, move forward, back, left, and right rows it, slower than a player would, on land and on water. On the ground, those same commands just walk. <code>/item give</code> gives an item that goes on cooldown when it's used, like an ender pearl.</p>
 				</article>
 				<article class="card">
 					<p class="card-label">World settings</p>
@@ -131,6 +131,9 @@
 				</article>
 			</div>
 			<ul class="more">
+				<li><code>/player name record</code> saves an mp4 of his view in your flashback videos folder</li>
+				<li>A spear stays still until <code>spear use 1</code>, which plays the use animation and does not jab</li>
+				<li>A Sharpness sword on a bot hits for a full charged swing</li>
 				<li>Spamming a raised shield pushes you back, and the player holding it stays put</li>
 				<li><code>/player name jump</code>, move, look, sneak, sprint, use, and attack work on real players</li>
 				<li>Look at a nearby block, up to 64 blocks away</li>
@@ -220,8 +223,8 @@
 						<li><code>/carpetmodsetting stunshield true</code></li>
 						<li><code>/team protection red true</code></li>
 						<li><code>/item give @a ender_pearl 20</code></li>
-						<li><code>/gost Alex spawn</code></li>
-						<li><code>/gost Alex replay</code></li>
+						<li><code>/ghost Alex spawn</code></li>
+						<li><code>/ghost Alex replay</code></li>
 						<li><code>/execute if Voice_Chat hello 16</code></li>
 						<li><code>/player Alex build NetherPortal</code></li>
 						<li><code>/data get entity Alex</code></li>
@@ -235,9 +238,9 @@
 			<div>
 				<p class="kicker">Download</p>
 				<h2>For Minecraft 1.21.11.</h2>
-				<p class="lede">You'll need Fabric Loader and Fabric API. This jar already includes Carpet and Modify Player Data. Voice chat is optional, and the voice-word check uses it. When this beta turns off, the working mod is at <a href="https://modrinth.com/mod/carpetplus">modrinth.com/mod/carpetplus</a>. This file is Carpet+BetaV2.9.</p>
+				<p class="lede">You'll need Fabric Loader and Fabric API. This jar already includes Carpet and Modify Player Data. Voice chat is optional, and the voice-word check uses it. When this beta turns off, the working mod is at <a href="https://modrinth.com/mod/carpetplus">modrinth.com/mod/carpetplus</a>. This file is Carpet+BetaV2.10.</p>
 				<div class="cta">
-					<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.9.jar" download="Carpet+BetaV2.9.jar">Download beta</a>
+					<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.10.jar" download="Carpet+BetaV2.10.jar">Download beta</a>
 					<a class="btn btn-ghost" href="https://discord.gg/jFDACu7ZBE">Hop on Discord</a>
 				</div>
 			</div>
@@ -252,7 +255,7 @@
 				</div>
 				<div>
 					<dt>Latest jar</dt>
-					<dd>Carpet+BetaV2.9</dd>
+					<dd>Carpet+BetaV2.10</dd>
 				</div>
 				<div>
 					<dt>Authors</dt>
@@ -326,7 +329,7 @@
 		<p>CarpetMod+ Beta by Javinplayz and sharpymoney_.</p>
 		<p class="fine">Not an official Minecraft service. Not approved by or associated with Mojang or Microsoft.</p>
 		<p class="foot-links">
-			<a href="downloads/Carpet%2BBetaV2.9.jar" download="Carpet+BetaV2.9.jar">Download beta</a>
+			<a href="downloads/Carpet%2BBetaV2.10.jar" download="Carpet+BetaV2.10.jar">Download beta</a>
 			<a href="https://discord.gg/jFDACu7ZBE">Discord</a>
 			<a href="#settings">Settings</a>
 		</p>
