@@ -11,224 +11,258 @@
 	<link rel="icon" href="favicon.svg" type="image/svg+xml">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,560;9..144,680&family=Outfit:wght@340;420;520;640&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/site.css">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="css/site.css?v=6">
 	<script>
 		try {
 			var theme = localStorage.getItem("carpetplus-theme");
 			if (theme) document.documentElement.setAttribute("data-theme", theme);
 			var motion = localStorage.getItem("carpetplus-motion");
 			if (motion === "off") document.documentElement.setAttribute("data-motion", "off");
-			var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-			if (motion !== "off" && (!reduce || motion === "on")) {
-				document.documentElement.setAttribute("data-type", "on");
-			}
 		} catch (e) {}
 	</script>
 </head>
 <body>
-	<a class="skip" href="#top">Skip to content</a>
-	<div class="atmosphere" aria-hidden="true"></div>
+	<a class="skip" href="#panel-download">Skip to content</a>
 
-	<header class="nav">
-		<a class="brand" href="#top">
-			<span class="mark" aria-hidden="true"></span>
-			<span>CarpetMod+ Beta</span>
+	<header class="topbar">
+		<a class="brand" href="#download">
+			<img class="mark" src="images/logo.png" alt="" width="22" height="22">
+			<span>carpetmod+</span>
 		</a>
-		<nav class="links" id="site-links" aria-label="Site">
+		<nav class="toplinks" aria-label="Site">
+			<a href="#download">Overview</a>
 			<a href="#features">Features</a>
-			<a href="#gallery">Gallery</a>
 			<a href="#commands">Commands</a>
-			<a href="#download">Download</a>
 			<a href="clicks.html">Clicks</a>
-			<a href="#settings">Settings</a>
 		</nav>
-		<div class="nav-actions">
-			<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.18.jar" download="Carpet+BetaV2.18.jar">Download beta</a>
-			<button class="menu" type="button" aria-expanded="false" aria-controls="site-links">
-				<span class="menu-bars" aria-hidden="true"></span>
-				<span class="visually-hidden">Menu</span>
-			</button>
-		</div>
+		<span class="status-dot" id="status-dot" data-state="loading" title="Checking beta status">
+			<span class="visually-hidden" id="status-dot-label">Checking beta status</span>
+		</span>
 	</header>
 
-	<main id="top">
-		<section class="hero">
-			<div class="hero-copy">
-				<p class="kicker">Fabric mod · Beta</p>
-				<h1 class="headline">
-					<span class="headline-ghost" aria-hidden="true">Bots that mine, craft, and walk for you.<span class="caret-space"></span></span>
-					<span class="typed" aria-hidden="true"></span>
-					<span class="visually-hidden">Bots that mine, craft, and walk for you.</span>
-				</h1>
-				<p class="lede">CarpetMod+ Beta is a Fabric add-on for Carpet. You spawn a fake player and tell them what to do. If the block is too high to reach, they build up to it. If they don't have any blocks, they go mine some dirt or stone first. Ghosts come from <code>/ghost</code>. A normal <code>/player</code> spawn stays a regular bot.</p>
-				<ul class="pills">
-					<li>Minecraft 1.21.11</li>
-					<li>Fabric</li>
-				</ul>
-				<div class="cta">
-					<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.18.jar" download="Carpet+BetaV2.18.jar">Download beta</a>
-					<a class="btn btn-ghost" href="https://discord.gg/jFDACu7ZBE">Discord</a>
+	<main class="dash">
+		<h1 class="dash-title">Dashboard</h1>
+		<div class="who">
+			<div class="who-left">
+				<span class="avatar" aria-hidden="true">C+</span>
+				<div>
+					<p class="who-name">CarpetMod+ Beta</p>
+					<p class="who-sub">By Javinplayz and sharpymoney_</p>
 				</div>
 			</div>
-			<aside class="console" aria-label="Example commands">
-				<div class="console-top">
-					<span></span><span></span><span></span>
-					<p>carpetplus</p>
-				</div>
-				<pre><code><span class="prompt">/</span>player Alex mine diamond_ore continuous
-<span class="prompt">/</span>player Alex walk 120 64 -40
-<span class="prompt">/</span>player Alex attack 5s once
-<span class="prompt">/</span>view Alex</code></pre>
-			</aside>
+			<a class="who-link" href="https://discord.gg/jFDACu7ZBE">
+				<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3H3v10h3M10 5l3 3-3 3M13 8H6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+				Discord
+			</a>
+		</div>
+
+		<div class="tabs" role="tablist" aria-label="Sections">
+			<button type="button" role="tab" id="tab-download" aria-controls="panel-download" data-tab="download">Download</button>
+			<button type="button" role="tab" id="tab-features" aria-controls="panel-features" data-tab="features">Features</button>
+			<button type="button" role="tab" id="tab-commands" aria-controls="panel-commands" data-tab="commands">Commands</button>
+			<button type="button" role="tab" id="tab-gallery" aria-controls="panel-gallery" data-tab="gallery">Gallery</button>
+			<button type="button" role="tab" id="tab-settings" aria-controls="panel-settings" data-tab="settings">Settings</button>
+		</div>
+
+		<section class="panel" role="tabpanel" id="panel-download" aria-labelledby="tab-download" data-panel="download">
+			<div class="grid grid-main">
+				<article class="card">
+					<div class="card-head">
+						<h2>Download CarpetMod+</h2>
+						<span class="badge">V2.19</span>
+					</div>
+					<p class="card-sub">Everything you need for the latest beta, in one jar. It already includes Carpet and Modify Player Data.</p>
+					<div class="tiles">
+						<div class="tile">
+							<p class="tile-label">Version</p>
+							<p class="tile-value">V2.19</p>
+						</div>
+						<div class="tile">
+							<p class="tile-label">Loader</p>
+							<p class="tile-value">Fabric</p>
+						</div>
+						<div class="tile">
+							<p class="tile-label">Required</p>
+							<p class="tile-value">Fabric API</p>
+						</div>
+					</div>
+					<div class="actions">
+						<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.19.jar" download="Carpet+BetaV2.19.jar">Download Beta</a>
+						<a class="btn btn-ghost" href="https://modrinth.com/mod/carpetplus">Modrinth</a>
+					</div>
+				</article>
+
+				<article class="card">
+					<h2>Install guide</h2>
+					<p class="card-sub">Fabric setup for Minecraft 1.21.11.</p>
+					<ol class="steps">
+						<li>
+							<span class="check" aria-hidden="true"></span>
+							<div>
+								<p class="step-title">Install Fabric</p>
+								<p class="step-sub">Use Fabric Loader for Minecraft 1.21.11.</p>
+							</div>
+						</li>
+						<li>
+							<span class="check" aria-hidden="true"></span>
+							<div>
+								<p class="step-title">Add mods</p>
+								<p class="step-sub">Put Fabric API and Carpet+BetaV2.19.jar in .minecraft/mods.</p>
+							</div>
+						</li>
+						<li>
+							<span class="check" aria-hidden="true"></span>
+							<div>
+								<p class="step-title">Launch game</p>
+								<p class="step-sub">Pick the Fabric profile, then type <code>/carpetplushelp</code> in game.</p>
+							</div>
+						</li>
+					</ol>
+				</article>
+			</div>
+
+			<div class="grid grid-even">
+				<article class="card">
+					<h2>Latest update</h2>
+					<p class="card-sub">Carpet+BetaV2.19</p>
+					<ul class="dashes">
+						<li><code>/player name move forward</code> never breaks or places blocks. Only <code>walk</code> does</li>
+						<li>Moving no longer puts a bot in a nearby boat</li>
+						<li><code>spear use 3</code> counts the bot's speed, so spear hits while falling or flying do damage</li>
+					</ul>
+					<a class="text-link" href="#features">See every change</a>
+				</article>
+
+				<article class="card">
+					<h2>Beta status</h2>
+					<div class="tiles tiles-two">
+						<div class="tile">
+							<p class="tile-label">Status</p>
+							<p class="tile-value tile-accent" id="status-text">Checking</p>
+						</div>
+						<div class="tile">
+							<p class="tile-label">Downloads</p>
+							<p class="tile-value" id="download-count">—</p>
+						</div>
+					</div>
+					<p class="card-note">Voice chat is optional, and the voice-word check uses it. If this beta turns off, the working mod is on <a href="https://modrinth.com/mod/carpetplus">Modrinth</a>.</p>
+				</article>
+			</div>
 		</section>
 
-		<section class="band" id="features">
-			<div class="section-head">
-				<p class="kicker">What it can do</p>
-				<h2>Stuff the bots can do.</h2>
-			</div>
-			<div class="bento">
+		<section class="panel" role="tabpanel" id="panel-features" aria-labelledby="tab-features" data-panel="features" hidden>
+			<div class="grid grid-even">
 				<article class="card card-wide">
 					<p class="card-label">Mining</p>
-					<h3>They pillar up to reach high blocks.</h3>
-					<p>If they're standing close enough, the block breaks right away. What drops still depends on the tool in their hand. When the ore is above them, they build up to it instead of jumping and swinging. If they have nothing to place, they mine some stone, dirt, or cobble nearby, pick it up, and then pillar.</p>
+					<h2>They pillar up to reach high blocks.</h2>
+					<p class="card-sub">If they're standing close enough, the block breaks right away. What drops still depends on the tool in their hand. When the ore is above them, they build up to it instead of jumping and swinging. If they have nothing to place, they mine some stone, dirt, or cobble nearby, pick it up, and then pillar.</p>
 				</article>
 				<article class="card">
 					<p class="card-label">Craft and smelt</p>
-					<h3>They craft and smelt, then pack up.</h3>
-					<p>You can type <code>diamond</code> or <code>minecraft:diamond</code>. A one-time job runs the whole recipe right then. If the bot placed the crafting table or furnace, they break it when they're done. Smelting still uses fuel.</p>
+					<h2>They craft and smelt, then pack up.</h2>
+					<p class="card-sub">You can type <code>diamond</code> or <code>minecraft:diamond</code>. A one-time job runs the whole recipe right then. If the bot placed the crafting table or furnace, they break it when they're done. Smelting still uses fuel.</p>
 				</article>
 				<article class="card">
 					<p class="card-label">Enchant and anvil</p>
-					<h3>Enchanting tables and anvils work too.</h3>
-					<p>Enchanting costs lapis and levels. If the bot placed the table, they break it after a one-time enchant. The anvil uses the item they're holding, plus a book or another item. In creative they skip the XP cost, and they still use the materials.</p>
+					<h2>Enchanting tables and anvils work too.</h2>
+					<p class="card-sub">Enchanting costs lapis and levels. If the bot placed the table, they break it after a one-time enchant. The anvil uses the item they're holding, plus a book or another item. In creative they skip the XP cost, and they still use the materials.</p>
 				</article>
 				<article class="card card-wide">
 					<p class="card-label">Pathfinding</p>
-					<h3>They can get around walls, lava, and drops.</h3>
-					<p>PathFind starts off on a new world, and the world remembers if you turn it on. With it on, walk-to-coordinates goes around blocks, bridges lava, and hops down short drops. <code>walk ~ ~ ~</code> follows that player, sprints like a player, climbs out of small holes, and finishes a pillar before chasing. It does not walk into holes. Move forward only builds up over a wall. A schematic walks straight to the next block and pillars. In creative, walking flies.</p>
+					<h2>They can get around walls, lava, and drops.</h2>
+					<p class="card-sub">PathFind starts off on a new world, and the world remembers if you turn it on. With it on, walk-to-coordinates goes around blocks, bridges lava, and hops down short drops. <code>walk ~ ~ ~</code> follows that player, sprints like a player, climbs out of small holes, and finishes a pillar before chasing. It does not walk into holes. Move forward only hops up one-block steps. A schematic walks straight to the next block and pillars. In creative, walking flies.</p>
 				</article>
 				<article class="card">
 					<p class="card-label">Ghosts</p>
-					<h3>A ghost that can replay what you did.</h3>
-					<p><code>/ghost</code> spawns a ghost for a player. Nobody can push them, and they don't shove other players. You can record someone, then play that back on the ghost. When a ghost leaves, chat says they have been removed. <code>/player Steve spawn in survival</code> is a normal bot.</p>
+					<h2>A ghost that can replay what you did.</h2>
+					<p class="card-sub"><code>/ghost</code> spawns a ghost for a player. Nobody can push them, and they don't shove other players. You can record someone, then play that back on the ghost. When a ghost leaves, chat says they have been removed. <code>/player Steve spawn in survival</code> is a normal bot.</p>
 				</article>
 				<article class="card">
 					<p class="card-label">Inventory and skins</p>
-					<h3>Check their inventory, or change the skin.</h3>
-					<p><code>invsee</code> lets you put items in the hotbar, armor, and offhand. For the skin, copy another player, or fill the whole thing with a color like black, red, or blue. Armor shows right away, and spectator can still go through walls.</p>
+					<h2>Check their inventory, or change the skin.</h2>
+					<p class="card-sub"><code>invsee</code> lets you put items in the hotbar, armor, and offhand. For the skin, copy another player, or fill the whole thing with a color like black, red, or blue. Armor shows right away, and spectator can still go through walls.</p>
 				</article>
 				<article class="card">
 					<p class="card-label">Boats and items</p>
-					<h3>They can row a boat, and items can have cooldowns.</h3>
-					<p>In a boat, move forward, back, left, and right rows it, slower than a player would, on land and on water. On the ground, those same commands just walk. <code>/item give</code> gives an item that goes on cooldown when it's used, like an ender pearl.</p>
+					<h2>They can row a boat, and items can have cooldowns.</h2>
+					<p class="card-sub">In a boat, move forward, back, left, and right rows it, slower than a player would, on land and on water. On the ground, those same commands just walk. <code>/item give</code> gives an item that goes on cooldown when it's used, like an ender pearl.</p>
 				</article>
 				<article class="card">
 					<p class="card-label">World settings</p>
-					<h3>Each world keeps its own settings.</h3>
-					<p>With StunShield on, disabling someone's shield pops them up about a block. Team protection keeps teammates from hurting each other. PathFind and StunShield both stay saved on that world.</p>
+					<h2>Each world keeps its own settings.</h2>
+					<p class="card-sub">With StunShield on, disabling someone's shield pops them up about a block. Team protection keeps teammates from hurting each other. PathFind and StunShield both stay saved on that world.</p>
 				</article>
 			</div>
-			<ul class="more">
-				<li>Back-to-back <code>use once</code> commands each get their own right click, so bots can double right-click</li>
-				<li>The game starts up quickly with the mod installed, straight to the title screen</li>
-				<li><code>/player name escape</code> gets a bot out of a hole, box, cave, or cage. Add <code>to player</code> to head for someone</li>
-				<li><code>/player name jump 5</code> jumps a set number of times, and <code>jump continuous</code> keeps going</li>
-				<li><code>/player name macehit</code> swings the mace only when someone is in range. Add <code>continuous</code> to keep at it</li>
-				<li>A mace drop lands one full smash using the whole fall</li>
-				<li><code>/execute useon</code> gives a fishing rod, totem, ender pearl, wind charge, crossbow, or bow that runs a command when used</li>
-				<li><code>/team nick team random</code>, <code>reset</code>, <code>null</code>, and <code>unstable</code> change bot display names. Commands keep the real names</li>
-				<li><code>wonder</code> bots glance around smoothly, open chests, craft, eat, place blocks, and hunt animals</li>
-				<li><code>/customsound file at player</code> plays a voice chat audio file for people without voice chat</li>
-				<li><code>/carpetmodsetting building&amp;breaking false</code> keeps walking bots from mining or pillaring. Walking bots sprint-jump</li>
-				<li>Walking bots hop up one-block steps, go around walls, and back up when stuck</li>
-				<li><code>@a</code>, <code>@p</code>, and <code>@e</code> work on <code>range</code>, <code>drop</code>, <code>exit</code>, <code>mainhand</code>, <code>say</code>, <code>skin</code>, <code>walk</code>, and <code>move</code></li>
-				<li><code>/multispawn</code> takes a name pattern and a skin, and spawns bots a few at a time</li>
-				<li>Starting a bot no longer crashes when the shield check runs</li>
-				<li>Blocks a bot breaks go into their inventory, and they pick up drops at their feet</li>
-				<li>In a fight, bots stay on the ground. They pillar and bridge only when the opponent is high or in the sky</li>
-				<li>On the ground, cover, a block in the way, or a block jump is uncommon</li>
-				<li>Hitting a bot who is blocking leaves both of you in place, and the bot still flinches</li>
-				<li>Getting hit no longer freezes a bot's walk animation</li>
-				<li><code>/attribute</code> knockback resistance shows the real value, including armor</li>
-				<li>A cannon crit swaps to a Breach mace for that hit, then swaps back</li>
-				<li><code>walk ~ ~ ~</code> climbs out of 1x2 and 2x2 holes, finishes the pillar, and does not jump into holes</li>
-				<li><code>walk ~ ~ ~</code> sprints like a player, and lets go when they sneak, go blind, or their hunger drops to 6</li>
-				<li>Move forward builds up over a wall and does not pathfind around it</li>
-				<li>Building walks straight to the next block and pillars, with no path search</li>
-				<li>If the walk target is in the air, the bot waits 3 seconds, then builds up</li>
-				<li>A larger group of bots does less pathfinding work at once</li>
-				<li><code>/player name record</code> saves an mp4 of his view in your flashback videos folder</li>
-				<li>A spear stays still until <code>spear use 1</code>, which plays the use animation and does not jab</li>
-				<li>A Sharpness sword on a bot hits for a full charged swing</li>
-				<li>Hitting anyone who is blocking leaves you in place, with the block sound and flinch</li>
-				<li><code>/player name jump</code>, move, look, sneak, sprint, use, and attack work on real players</li>
-				<li>Look at a nearby block, up to 64 blocks away</li>
-				<li>Build nether portals and schematics</li>
-				<li>Watch someone with <code>/view</code> and see their hand, the item they're holding, hearts, hunger, and hotbar</li>
-				<li>Bot attacks deal the damage of the item in their hand</li>
-				<li><code>/player name wonder inf</code> keeps going in a repeating command block</li>
-				<li>Fixed the crash that stopped the mod from loading</li>
-				<li><code>walk ~ ~ ~</code> follows that player immediately, pillars up, and builds across or down when they move off the tower</li>
-				<li><code>use once</code> in a repeating always-active command block keeps shielding or eating until that block stops</li>
-				<li>Open <code>/player</code> stats and hover the armor on the stand</li>
-				<li>Run a command when someone says a phrase in voice chat</li>
-				<li>Swing once after 5 seconds, 5 minutes, or 5 hours</li>
-				<li>Write books, use spears, summon pets, and play voice lines</li>
-				<li>Choose how many chunks a player loads or can see</li>
-				<li>Scoreboards for mace hits, falling, elytra distance, and player damage</li>
-			</ul>
+
+			<article class="card">
+				<h2>Every change</h2>
+				<p class="card-sub">Newest first.</p>
+				<ul class="dashes more">
+					<li><code>/player name move forward</code> and <code>backward</code> never break or place blocks, even when stuck. Only <code>walk</code> mines and builds</li>
+					<li>Moving no longer puts a bot in a nearby boat</li>
+					<li><code>spear use 3</code> counts the bot's speed, so spear hits while falling or flying with an elytra do damage</li>
+					<li>Back-to-back <code>use once</code> commands each get their own right click, so bots can double right-click</li>
+					<li>The game starts up quickly with the mod installed, straight to the title screen</li>
+					<li><code>/player name escape</code> gets a bot out of a hole, box, cave, or cage. Add <code>to player</code> to head for someone</li>
+					<li><code>/player name jump 5</code> jumps a set number of times, and <code>jump continuous</code> keeps going</li>
+					<li><code>/player name macehit</code> swings the mace only when someone is in range. Add <code>continuous</code> to keep at it</li>
+					<li>A mace drop lands one full smash using the whole fall</li>
+					<li><code>/execute useon</code> gives a fishing rod, totem, ender pearl, wind charge, crossbow, or bow that runs a command when used</li>
+					<li><code>/team nick team random</code>, <code>reset</code>, <code>null</code>, and <code>unstable</code> change bot display names. Commands keep the real names</li>
+					<li><code>wonder</code> bots glance around smoothly, open chests, craft, eat, place blocks, and hunt animals</li>
+					<li><code>/customsound file at player</code> plays a voice chat audio file for people without voice chat</li>
+					<li><code>/carpetmodsetting building&amp;breaking false</code> keeps walking bots from mining or pillaring. Walking bots sprint-jump</li>
+					<li>Walking bots hop up one-block steps, go around walls, and back up when stuck</li>
+					<li><code>@a</code>, <code>@p</code>, and <code>@e</code> work on <code>range</code>, <code>drop</code>, <code>exit</code>, <code>mainhand</code>, <code>say</code>, <code>skin</code>, <code>walk</code>, and <code>move</code></li>
+					<li><code>/multispawn</code> takes a name pattern and a skin, and spawns bots a few at a time</li>
+					<li>Starting a bot no longer crashes when the shield check runs</li>
+					<li>Blocks a bot breaks go into their inventory, and they pick up drops at their feet</li>
+					<li>In a fight, bots stay on the ground. They pillar and bridge only when the opponent is high or in the sky</li>
+					<li>On the ground, cover, a block in the way, or a block jump is uncommon</li>
+					<li>Hitting a bot who is blocking leaves both of you in place, and the bot still flinches</li>
+					<li>Getting hit no longer freezes a bot's walk animation</li>
+					<li><code>/attribute</code> knockback resistance shows the real value, including armor</li>
+					<li>A cannon crit swaps to a Breach mace for that hit, then swaps back</li>
+					<li><code>walk ~ ~ ~</code> climbs out of 1x2 and 2x2 holes, finishes the pillar, and does not jump into holes</li>
+					<li><code>walk ~ ~ ~</code> sprints like a player, and lets go when they sneak, go blind, or their hunger drops to 6</li>
+					<li>Move forward builds up over a wall and does not pathfind around it</li>
+					<li>Building walks straight to the next block and pillars, with no path search</li>
+					<li>If the walk target is in the air, the bot waits 3 seconds, then builds up</li>
+					<li>A larger group of bots does less pathfinding work at once</li>
+					<li><code>/player name record</code> saves an mp4 of his view in your flashback videos folder</li>
+					<li>A spear stays still until <code>spear use 1</code>, which plays the use animation and does not jab</li>
+					<li>A Sharpness sword on a bot hits for a full charged swing</li>
+					<li>Hitting anyone who is blocking leaves you in place, with the block sound and flinch</li>
+					<li><code>/player name jump</code>, move, look, sneak, sprint, use, and attack work on real players</li>
+					<li>Look at a nearby block, up to 64 blocks away</li>
+					<li>Build nether portals and schematics</li>
+					<li>Watch someone with <code>/view</code> and see their hand, the item they're holding, hearts, hunger, and hotbar</li>
+					<li>Bot attacks deal the damage of the item in their hand</li>
+					<li><code>/player name wonder inf</code> keeps going in a repeating command block</li>
+					<li>Fixed the crash that stopped the mod from loading</li>
+					<li><code>walk ~ ~ ~</code> follows that player immediately, pillars up, and builds across or down when they move off the tower</li>
+					<li><code>use once</code> in a repeating always-active command block keeps shielding or eating until that block stops</li>
+					<li>Open <code>/player</code> stats and hover the armor on the stand</li>
+					<li>Run a command when someone says a phrase in voice chat</li>
+					<li>Swing once after 5 seconds, 5 minutes, or 5 hours</li>
+					<li>Write books, use spears, summon pets, and play voice lines</li>
+					<li>Choose how many chunks a player loads or can see</li>
+					<li>Scoreboards for mace hits, falling, elytra distance, and player damage</li>
+				</ul>
+			</article>
 		</section>
 
-		<section class="band" id="gallery">
-			<div class="section-head">
-				<p class="kicker">Gallery</p>
-				<h2>A few shots from the mod.</h2>
-			</div>
-			<div class="gallery">
-				<article class="shot">
-					<button type="button" class="shot-open" aria-label="Open Some Commands">
-						<img src="images/commands.png" alt="Chat suggestions for CarpetMod+ commands, including attack, blocklook, build, collect, and coords.">
-					</button>
-					<div class="shot-body">
-						<h3>Some Commands</h3>
-						<p>Little SneakPeak</p>
-						<time datetime="2026-10-05">October 5, 2026</time>
-					</div>
-				</article>
-				<article class="shot">
-					<button type="button" class="shot-open" aria-label="Open MainHand Changer">
-						<img src="images/mainhand.png" alt="Alex holding a diamond sword in the left hand.">
-					</button>
-					<div class="shot-body">
-						<h3>MainHand Changer</h3>
-						<p>the Bot can now be a Left Hand<br>When using /player alex mainhand left</p>
-						<time datetime="2026-10-05">October 5, 2026</time>
-					</div>
-				</article>
-				<article class="shot">
-					<button type="button" class="shot-open" aria-label="Open Bot Can Use Spears">
-						<img src="images/spear.png" alt="Alex holding a spear out in a field.">
-					</button>
-					<div class="shot-body">
-						<h3>Bot Can Use Spears</h3>
-						<p>Using /player spear mode 3</p>
-						<time datetime="2026-10-05">October 5, 2026</time>
-					</div>
-				</article>
-			</div>
-		</section>
+		<section class="panel" role="tabpanel" id="panel-commands" aria-labelledby="tab-commands" data-panel="commands" hidden>
+			<article class="card">
+				<h2>Just a peek</h2>
+				<p class="card-sub">These aren't all the commands, only a few to get you started. Type <code>/carpetplushelp</code> in game to see every one.</p>
+			</article>
 
-		<section class="band" id="commands">
-			<div class="section-head">
-				<p class="kicker">Commands</p>
-				<h2>Some commands to start with.</h2>
-				<p class="section-note">Type <code>/carpetplushelp</code> in game if you want every command.</p>
-			</div>
-			<div class="command-grid">
-				<article>
-					<h3>Bots</h3>
+			<div class="grid grid-even">
+				<article class="card">
+					<h2>Bots</h2>
+					<p class="card-sub">Type <code>/carpetplushelp</code> in game for every command.</p>
 					<ul class="cmds">
 						<li><code>/player Alex mine diamond_ore continuous</code></li>
 						<li><code>/player Alex collect diamond once</code></li>
@@ -244,8 +278,9 @@
 						<li><code>/player Alex invsee</code></li>
 					</ul>
 				</article>
-				<article>
-					<h3>World and items</h3>
+				<article class="card">
+					<h2>World and items</h2>
+					<p class="card-sub">Settings stay saved on each world.</p>
 					<ul class="cmds">
 						<li><code>/carpetmodsetting pathfind true</code></li>
 						<li><code>/carpetmodsetting stunshield true</code></li>
@@ -262,89 +297,77 @@
 			</div>
 		</section>
 
-		<section class="band download" id="download">
-			<div>
-				<p class="kicker">Download</p>
-				<h2>For Minecraft 1.21.11.</h2>
-				<p class="lede">You'll need Fabric Loader and Fabric API. This jar already includes Carpet and Modify Player Data. Voice chat is optional, and the voice-word check uses it. When this beta turns off, the working mod is at <a href="https://modrinth.com/mod/carpetplus">modrinth.com/mod/carpetplus</a>. This file is Carpet+BetaV2.18.</p>
-				<div class="cta">
-					<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.18.jar" download="Carpet+BetaV2.18.jar">Download beta</a>
-					<a class="btn btn-ghost" href="https://discord.gg/jFDACu7ZBE">Hop on Discord</a>
-				</div>
+		<section class="panel" role="tabpanel" id="panel-gallery" aria-labelledby="tab-gallery" data-panel="gallery" hidden>
+			<div class="grid grid-three">
+				<article class="card shot">
+					<button type="button" class="shot-open" aria-label="Open Some Commands">
+						<img src="images/commands.png" alt="Chat suggestions for CarpetMod+ commands, including attack, blocklook, build, collect, and coords.">
+					</button>
+					<h2>Some Commands</h2>
+					<p class="card-sub">Little SneakPeak</p>
+					<time datetime="2026-10-05">October 5, 2026</time>
+				</article>
+				<article class="card shot">
+					<button type="button" class="shot-open" aria-label="Open MainHand Changer">
+						<img src="images/mainhand.png" alt="Alex holding a diamond sword in the left hand.">
+					</button>
+					<h2>MainHand Changer</h2>
+					<p class="card-sub">The bot can be left-handed with <code>/player alex mainhand left</code></p>
+					<time datetime="2026-10-05">October 5, 2026</time>
+				</article>
+				<article class="card shot">
+					<button type="button" class="shot-open" aria-label="Open Bot Can Use Spears">
+						<img src="images/spear.png" alt="Alex holding a spear out in a field.">
+					</button>
+					<h2>Bot Can Use Spears</h2>
+					<p class="card-sub">Using <code>/player spear mode 3</code></p>
+					<time datetime="2026-10-05">October 5, 2026</time>
+				</article>
 			</div>
-			<dl class="facts">
-				<div>
-					<dt>Minecraft</dt>
-					<dd>1.21.11</dd>
-				</div>
-				<div>
-					<dt>Loader</dt>
-					<dd>Fabric</dd>
-				</div>
-				<div>
-					<dt>Latest jar</dt>
-					<dd>Carpet+BetaV2.18</dd>
-				</div>
-				<div>
-					<dt>Authors</dt>
-					<dd>Javinplayz and sharpymoney_</dd>
-				</div>
-			</dl>
 		</section>
 
-		<section class="band" id="settings">
-			<div class="section-head">
-				<p class="kicker">Settings</p>
-				<h2>Change the look of this page.</h2>
-				<p class="section-note">Your pick is saved in this browser. It only changes the website.</p>
-			</div>
-			<div class="theme-grid">
-				<button type="button" class="theme-card" data-theme-choice="dark">
-					<span class="swatch swatch-dark" aria-hidden="true"></span>
-					<span>
+		<section class="panel" role="tabpanel" id="panel-settings" aria-labelledby="tab-settings" data-panel="settings" hidden>
+			<article class="card">
+				<h2>Theme</h2>
+				<p class="card-sub">Your pick is saved in this browser. It only changes the website.</p>
+				<div class="theme-grid">
+					<button type="button" class="theme-card" data-theme-choice="dark">
+						<span class="swatch swatch-dark" aria-hidden="true"></span>
 						<strong>Dark</strong>
-						<small>Black and green</small>
-					</span>
-				</button>
-				<button type="button" class="theme-card" data-theme-choice="light">
-					<span class="swatch swatch-light" aria-hidden="true"></span>
-					<span>
+						<small>Black and white</small>
+					</button>
+					<button type="button" class="theme-card" data-theme-choice="light">
+						<span class="swatch swatch-light" aria-hidden="true"></span>
 						<strong>Light</strong>
-						<small>White and green</small>
-					</span>
-				</button>
-				<button type="button" class="theme-card" data-theme-choice="green">
-					<span class="swatch swatch-green" aria-hidden="true"></span>
-					<span>
+						<small>White and black</small>
+					</button>
+					<button type="button" class="theme-card" data-theme-choice="green">
+						<span class="swatch swatch-green" aria-hidden="true"></span>
 						<strong>Green</strong>
 						<small>Lots of green</small>
-					</span>
-				</button>
-				<button type="button" class="theme-card" data-theme-choice="gold">
-					<span class="swatch swatch-gold" aria-hidden="true"></span>
-					<span>
+					</button>
+					<button type="button" class="theme-card" data-theme-choice="gold">
+						<span class="swatch swatch-gold" aria-hidden="true"></span>
 						<strong>Gold</strong>
 						<small>Warm gold</small>
-					</span>
-				</button>
-				<button type="button" class="theme-card" data-theme-choice="dusk">
-					<span class="swatch swatch-dusk" aria-hidden="true"></span>
-					<span>
+					</button>
+					<button type="button" class="theme-card" data-theme-choice="dusk">
+						<span class="swatch swatch-dusk" aria-hidden="true"></span>
 						<strong>Dusk</strong>
 						<small>Night blue</small>
-					</span>
-				</button>
-			</div>
-			<div class="motion-row">
+					</button>
+				</div>
+			</article>
+			<article class="card motion-row">
 				<div>
-					<h3>Motion</h3>
-					<p>Page fades, or keep it still.</p>
+					<h2>Motion</h2>
+					<p class="card-sub">Fade between tabs, or keep it still.</p>
 				</div>
 				<div class="segmented" role="group" aria-label="Motion">
 					<button type="button" data-motion="on">Smooth</button>
 					<button type="button" data-motion="off">Still</button>
 				</div>
-			</div>
+			</article>
 		</section>
 	</main>
 
@@ -356,12 +379,7 @@
 	<footer class="foot">
 		<p>CarpetMod+ Beta by Javinplayz and sharpymoney_.</p>
 		<p class="fine">Not an official Minecraft service. Not approved by or associated with Mojang or Microsoft.</p>
-		<p class="foot-links">
-			<a href="downloads/Carpet%2BBetaV2.18.jar" download="Carpet+BetaV2.18.jar">Download beta</a>
-			<a href="https://discord.gg/jFDACu7ZBE">Discord</a>
-			<a href="#settings">Settings</a>
-		</p>
 	</footer>
-	<script src="js/site.js?v=4"></script>
+	<script src="js/site.js?v=5"></script>
 </body>
 </html>

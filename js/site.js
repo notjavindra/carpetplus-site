@@ -3,8 +3,9 @@
 	var themes = ["dark", "light", "green", "gold", "dusk"];
 	var cards = document.querySelectorAll("[data-theme-choice]");
 	var motionButtons = document.querySelectorAll("[data-motion]");
-	var menu = document.querySelector(".menu");
-	var links = document.getElementById("site-links");
+	var countBase = "https://abacus.jasoncameron.dev";
+	var countKey = "notjavindra.github.io/carpetplus-beta-downloads";
+	var statusUrl = "https://raw.githubusercontent.com/notjavindra/StatusMod/refs/heads/main/Status";
 
 	function currentTheme() {
 		var value = root.getAttribute("data-theme");
@@ -14,13 +15,11 @@
 	function paint() {
 		var theme = currentTheme();
 		cards.forEach(function (card) {
-			var on = card.getAttribute("data-theme-choice") === theme;
-			card.setAttribute("aria-pressed", on ? "true" : "false");
+			card.setAttribute("aria-pressed", card.getAttribute("data-theme-choice") === theme ? "true" : "false");
 		});
 		var motion = root.getAttribute("data-motion") === "off" ? "off" : "on";
 		motionButtons.forEach(function (button) {
-			var on = button.getAttribute("data-motion") === motion;
-			button.setAttribute("aria-pressed", on ? "true" : "false");
+			button.setAttribute("aria-pressed", button.getAttribute("data-motion") === motion ? "true" : "false");
 		});
 	}
 
@@ -43,64 +42,100 @@
 		});
 	});
 
-	var scrollFrame = 0;
+	// Tabs. The hash picks the tab, so index.html#features opens Features.
+	var tabs = document.querySelectorAll("[data-tab]");
+	var panels = document.querySelectorAll("[data-panel]");
 
-	function glideTo(id) {
-		var start = window.scrollY;
-		var end = 0;
-		if (id && id !== "top") {
-			var target = document.getElementById(id);
-			if (!target) return;
-			var bar = document.querySelector(".nav");
-			var offset = (bar ? bar.offsetHeight : 0) + 22;
-			end = target.getBoundingClientRect().top + start - offset;
-		}
-		var distance = end - start;
-		if (Math.abs(distance) < 2) {
-			history.replaceState(null, "", id ? "#" + id : location.pathname);
-			return;
-		}
-		var duration = Math.max(720, Math.min(1300, Math.abs(distance) * 0.62));
-		var began = performance.now();
-		var previous = root.style.scrollBehavior;
-		root.style.scrollBehavior = "auto";
-		window.cancelAnimationFrame(scrollFrame);
-		function step(now) {
-			var t = Math.min(1, (now - began) / duration);
-			var eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-			window.scrollTo({ left: 0, top: start + distance * eased, behavior: "instant" });
-			if (t < 1) {
-				scrollFrame = window.requestAnimationFrame(step);
-			} else {
-				root.style.scrollBehavior = previous;
-			}
-		}
-		scrollFrame = window.requestAnimationFrame(step);
-		history.replaceState(null, "", "#" + (id || "top"));
+	function hasPanel(name) {
+		return !!document.querySelector('[data-panel="' + name + '"]');
 	}
 
-	document.querySelectorAll('a[href^="#"]').forEach(function (link) {
-		link.addEventListener("click", function (event) {
-			var id = link.getAttribute("href").slice(1);
-			if (!id) return;
-			event.preventDefault();
-			glideTo(id);
+	function show(name, focusTab) {
+		if (!hasPanel(name)) name = "download";
+		tabs.forEach(function (tab) {
+			var on = tab.getAttribute("data-tab") === name;
+			tab.setAttribute("aria-selected", on ? "true" : "false");
+			tab.tabIndex = on ? 0 : -1;
+			if (on && focusTab) tab.focus();
 		});
-	});
+		panels.forEach(function (panel) {
+			panel.hidden = panel.getAttribute("data-panel") !== name;
+		});
+	}
 
-	if (menu && links) {
-		menu.addEventListener("click", function () {
-			var open = links.classList.toggle("open");
-			menu.setAttribute("aria-expanded", open ? "true" : "false");
-		});
-		links.querySelectorAll("a").forEach(function (link) {
-			link.addEventListener("click", function () {
-				links.classList.remove("open");
-				menu.setAttribute("aria-expanded", "false");
+	if (tabs.length) {
+		tabs.forEach(function (tab, index) {
+			tab.addEventListener("click", function () {
+				var name = tab.getAttribute("data-tab");
+				history.replaceState(null, "", "#" + name);
+				show(name);
+			});
+			tab.addEventListener("keydown", function (event) {
+				var step = event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+				if (!step) return;
+				event.preventDefault();
+				var next = tabs[(index + step + tabs.length) % tabs.length];
+				var name = next.getAttribute("data-tab");
+				history.replaceState(null, "", "#" + name);
+				show(name, true);
 			});
 		});
+
+		document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+			var name = link.getAttribute("href").slice(1);
+			if (!hasPanel(name)) return;
+			link.addEventListener("click", function (event) {
+				event.preventDefault();
+				history.replaceState(null, "", "#" + name);
+				show(name);
+				window.scrollTo({ top: 0, behavior: root.getAttribute("data-motion") === "off" ? "auto" : "smooth" });
+			});
+		});
+
+		window.addEventListener("hashchange", function () {
+			show(location.hash.slice(1));
+		});
+
+		show(location.hash.slice(1));
 	}
 
+	// Beta status from the same file the mod reads.
+	var dot = document.getElementById("status-dot");
+	var dotLabel = document.getElementById("status-dot-label");
+	var statusText = document.getElementById("status-text");
+
+	function setStatus(state, label) {
+		if (dot) {
+			dot.setAttribute("data-state", state);
+			dot.title = label;
+		}
+		if (dotLabel) dotLabel.textContent = label;
+		if (statusText) statusText.textContent = state === "online" ? "Online" : state === "maintenance" ? "Maintenance" : state === "off" ? "Off" : "Unknown";
+	}
+
+	if (dot || statusText) {
+		fetch(statusUrl, { cache: "no-store" }).then(function (response) {
+			if (!response.ok) throw new Error("status");
+			return response.text();
+		}).then(function (text) {
+			var values = {};
+			text.split(/\r?\n/).forEach(function (raw) {
+				var line = raw.trim();
+				if (!line || line.charAt(0) === "#") return;
+				var split = line.indexOf("=");
+				if (split < 0) split = line.indexOf(":");
+				if (split <= 0) return;
+				values[line.slice(0, split).trim().toLowerCase()] = line.slice(split + 1).trim().toLowerCase();
+			});
+			if (values.betastatus === "disable") setStatus("off", "The beta is turned off");
+			else if (values.status === "disable") setStatus("maintenance", "The mod is in maintenance");
+			else setStatus("online", "The beta is online");
+		}).catch(function () {
+			setStatus("unknown", "Could not check the beta status");
+		});
+	}
+
+	// Lightbox for gallery shots.
 	var lightbox = document.getElementById("lightbox");
 	var lightboxImage = lightbox ? lightbox.querySelector("img") : null;
 	document.querySelectorAll(".shot-open").forEach(function (button) {
@@ -121,85 +156,63 @@
 		});
 	}
 
-	var headline = document.querySelector(".typed");
-	if (headline) {
-		var line = "Bots that mine, craft, and walk for you.";
-		var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches && root.getAttribute("data-motion") !== "on";
-		var still = root.getAttribute("data-motion") === "off";
-		if (reduce || still) {
-			headline.textContent = line;
-		} else {
-			var index = 0;
-			headline.classList.add("typing");
-			window.setTimeout(function tick() {
-				index += 1;
-				headline.textContent = line.slice(0, index);
-				if (index >= line.length) {
-					window.setTimeout(function () { headline.classList.remove("typing"); }, 900);
-					return;
-				}
-				var pause = line.charAt(index - 1) === "," ? 220 : 48;
-				window.setTimeout(tick, pause);
-			}, 420);
-		}
-	}
-
 	document.querySelectorAll("a[download]").forEach(function (link) {
 		link.addEventListener("click", function () {
-			fetch("https://abacus.jasoncameron.dev/hit/notjavindra.github.io/carpetplus-beta-downloads", {
-				cache: "no-store",
-				keepalive: true
-			}).catch(function () {});
+			fetch(countBase + "/hit/" + countKey, { cache: "no-store", keepalive: true }).catch(function () {});
 		});
 	});
 
+	// Download count: the big number on clicks.html, the tile on the dashboard.
 	var liveCount = document.getElementById("live-count");
-	if (liveCount) {
-		var countUrl = "https://abacus.jasoncameron.dev/get/notjavindra.github.io/carpetplus-beta-downloads";
-		var streamUrl = "https://abacus.jasoncameron.dev/stream/notjavindra.github.io/carpetplus-beta-downloads";
+	var countTile = document.getElementById("download-count");
 
-		function paintLive(value) {
-			if (typeof value !== "number" || value < 0) return;
-			var next = String(value);
-			try { localStorage.setItem("carpetplus-download-count", next); } catch (e) {}
-			if (liveCount.textContent === next) return;
-			var first = liveCount.textContent === "";
-			liveCount.textContent = next;
-			if (first) return;
-			liveCount.classList.remove("tick");
-			void liveCount.offsetWidth;
-			liveCount.classList.add("tick");
-		}
+	function paintCount(value) {
+		if (typeof value !== "number" || value < 0) return;
+		var next = String(value);
+		try { localStorage.setItem("carpetplus-download-count", next); } catch (e) {}
+		if (countTile) countTile.textContent = value.toLocaleString();
+		if (!liveCount || liveCount.textContent === next) return;
+		var first = liveCount.textContent === "";
+		liveCount.textContent = next;
+		if (first) return;
+		liveCount.classList.remove("tick");
+		void liveCount.offsetWidth;
+		liveCount.classList.add("tick");
+	}
 
-		function readCount() {
-			return fetch(countUrl, { cache: "no-store" }).then(function (response) {
-				if (!response.ok) throw new Error("count");
-				return response.json();
-			}).then(function (data) {
-				if (!data || typeof data.value !== "number") throw new Error("count");
-				paintLive(data.value);
-			});
-		}
+	function readCount() {
+		return fetch(countBase + "/get/" + countKey, { cache: "no-store" }).then(function (response) {
+			if (!response.ok) throw new Error("count");
+			return response.json();
+		}).then(function (data) {
+			if (!data || typeof data.value !== "number") throw new Error("count");
+			paintCount(data.value);
+		});
+	}
 
-		function loadCount(useShared) {
-			var job = useShared && window.carpetplusCountReady
-				? window.carpetplusCountReady.then(function (value) {
-					if (typeof value !== "number") throw new Error("count");
-					paintLive(value);
-				})
-				: readCount();
-			job.catch(function () {
-				window.setTimeout(function () { loadCount(false); }, 2000);
-			});
-		}
+	function loadCount(useShared) {
+		var job = useShared && window.carpetplusCountReady
+			? window.carpetplusCountReady.then(function (value) {
+				if (typeof value !== "number") throw new Error("count");
+				paintCount(value);
+			})
+			: readCount();
+		job.catch(function () {
+			window.setTimeout(function () { loadCount(false); }, 2000);
+		});
+	}
 
+	if (liveCount || countTile) {
+		try {
+			var saved = localStorage.getItem("carpetplus-download-count");
+			if (saved && countTile) countTile.textContent = Number(saved).toLocaleString();
+		} catch (e) {}
 		loadCount(true);
-
-		var source = new EventSource(streamUrl);
+		var source = new EventSource(countBase + "/stream/" + countKey);
 		source.onmessage = function (event) {
 			try {
 				var data = JSON.parse(event.data);
-				if (data && typeof data.value === "number") paintLive(data.value);
+				if (data && typeof data.value === "number") paintCount(data.value);
 			} catch (e) {}
 		};
 	}
