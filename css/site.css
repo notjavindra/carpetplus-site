@@ -201,15 +201,11 @@ code {
 .who-left { display: flex; align-items: center; gap: 10px; }
 
 .avatar {
-	display: grid;
-	place-items: center;
+	display: block;
 	width: 34px;
 	height: 34px;
 	border-radius: 50%;
-	background: var(--badge);
-	color: #0b1530;
-	font-size: 0.72rem;
-	font-weight: 800;
+	object-fit: cover;
 }
 
 .who-name { margin: 0; font-weight: 700; font-size: 0.92rem; }
