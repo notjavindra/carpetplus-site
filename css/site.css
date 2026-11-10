@@ -283,6 +283,10 @@ code {
 
 .card:hover { border-color: var(--line-strong); }
 
+.notice { margin: -8px 0 24px; }
+.notice p { margin: 10px 0 0; color: var(--muted); font-size: 0.9rem; }
+.notice strong { color: var(--ink); }
+
 .card-wide { grid-column: 1 / -1; }
 
 .card h2 {
