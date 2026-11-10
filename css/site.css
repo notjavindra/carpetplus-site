@@ -377,6 +377,15 @@ code {
 .btn-ghost { border-color: var(--line); color: var(--ink); background: transparent; }
 .btn-ghost:hover { border-color: var(--line-strong); background: var(--tile); }
 
+.btn-locked {
+	gap: 8px;
+	color: var(--muted);
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.btn-locked svg { width: 14px; height: 14px; display: block; }
+
 /* Install steps */
 
 .steps {
