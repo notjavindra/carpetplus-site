@@ -70,13 +70,13 @@
 				<article class="card">
 					<div class="card-head">
 						<h2>Download CarpetMod+</h2>
-						<span class="badge">V2.19</span>
+						<span class="badge">V2.20</span>
 					</div>
 					<p class="card-sub">Everything you need for the latest beta, in one jar. It already includes Carpet and Modify Player Data.</p>
 					<div class="tiles">
 						<div class="tile">
 							<p class="tile-label">Version</p>
-							<p class="tile-value">V2.19</p>
+							<p class="tile-value">V2.20</p>
 						</div>
 						<div class="tile">
 							<p class="tile-label">Fabric Loader</p>
@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					<div class="actions">
-						<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.19.jar" download="Carpet+BetaV2.19.jar">Download Beta</a>
+						<a class="btn btn-solid" href="downloads/Carpet%2BBetaV2.20.jar" download="Carpet+BetaV2.20.jar">Download Beta</a>
 						<a class="btn btn-ghost" href="https://modrinth.com/mod/carpetplus">Modrinth</a>
 					</div>
 				</article>
@@ -108,7 +108,7 @@
 							<span class="check" aria-hidden="true"></span>
 							<div>
 								<p class="step-title">Add mods</p>
-								<p class="step-sub">Put fabric-api-0.141.6+1.21.11.jar and Carpet+BetaV2.19.jar in .minecraft/mods.</p>
+								<p class="step-sub">Put fabric-api-0.141.6+1.21.11.jar and Carpet+BetaV2.20.jar in .minecraft/mods.</p>
 							</div>
 						</li>
 						<li>
@@ -129,11 +129,11 @@
 			<div class="grid grid-even">
 				<article class="card">
 					<h2>Latest update</h2>
-					<p class="card-sub">Carpet+BetaV2.19</p>
+					<p class="card-sub">Carpet+BetaV2.20</p>
 					<ul class="dashes">
-						<li><code>/player name move forward</code> never breaks or places blocks. Only <code>walk</code> does</li>
-						<li>Moving no longer puts a bot in a nearby boat</li>
-						<li><code>spear use 3</code> counts the bot's speed, so spear hits while falling or flying do damage</li>
+						<li>Survival mining takes the normal time for the tool in hand, and the block shows cracks</li>
+						<li>The game loads on Lunar, Fast Client, and other clients</li>
+						<li>Bots stay after they join. Only <code>/kick</code> makes one leave</li>
 					</ul>
 					<a class="text-link" href="#features">See every change</a>
 				</article>
@@ -203,6 +203,10 @@
 				<h2>Every change</h2>
 				<p class="card-sub">Newest first.</p>
 				<ul class="dashes more">
+					<li><code>/player name mine</code> breaks at survival speed. The tool, Efficiency, and Haste decide how long it takes, and the block shows cracks</li>
+					<li>Bots walk a real route even on short trips. They go around walls, stay off fire, magma, cactus, and berry bushes, drop into water, and climb ladders</li>
+					<li>The game loads when another mod changes the hand display, including Lunar and Fast Client</li>
+					<li>A bot no longer leaves right after joining. Timeouts and other disconnects are ignored. <code>/kick</code> still removes them</li>
 					<li><code>/player name move forward</code> and <code>backward</code> never break or place blocks, even when stuck. Only <code>walk</code> mines and builds</li>
 					<li>Moving no longer puts a bot in a nearby boat</li>
 					<li><code>spear use 3</code> counts the bot's speed, so spear hits while falling or flying with an elytra do damage</li>
