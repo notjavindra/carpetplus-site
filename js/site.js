@@ -158,6 +158,7 @@
 
 	document.querySelectorAll("a[download]").forEach(function (link) {
 		link.addEventListener("click", function () {
+			if (link.getAttribute("href").indexOf("Carpet") === -1) return;
 			fetch(countBase + "/hit/" + countKey, { cache: "no-store", keepalive: true }).catch(function () {});
 		});
 	});
