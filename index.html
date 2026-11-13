@@ -12,7 +12,7 @@
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="css/site.css?v=9">
+	<link rel="stylesheet" href="css/site.css?v=10">
 	<script>
 		try {
 			var theme = localStorage.getItem("carpetplus-theme");
@@ -34,6 +34,7 @@
 			<a href="#download">Overview</a>
 			<a href="#features">Features</a>
 			<a href="#commands">Commands</a>
+			<a href="#help">Help</a>
 			<a href="clicks.html">Clicks</a>
 		</nav>
 		<span class="status-dot" id="status-dot" data-state="loading" title="Checking beta status">
@@ -63,6 +64,7 @@
 			<button type="button" role="tab" id="tab-commands" aria-controls="panel-commands" data-tab="commands">Commands</button>
 			<button type="button" role="tab" id="tab-gallery" aria-controls="panel-gallery" data-tab="gallery">Gallery</button>
 			<button type="button" role="tab" id="tab-settings" aria-controls="panel-settings" data-tab="settings">Settings</button>
+			<button type="button" role="tab" id="tab-help" aria-controls="panel-help" data-tab="help">Help</button>
 		</div>
 
 		<article class="card notice">
@@ -386,6 +388,26 @@
 				</div>
 			</article>
 		</section>
+
+		<section class="panel" role="tabpanel" id="panel-help" aria-labelledby="tab-help" data-panel="help" hidden>
+			<article class="card help-chat">
+				<h2>Help</h2>
+				<p class="card-sub">Ask about the mod. A crash log stays in this browser.</p>
+				<div class="help-log" id="help-log" aria-live="polite"></div>
+				<div class="help-chips" role="group" aria-label="Shortcuts">
+					<button type="button" class="chip" data-help="crashes">Crashes</button>
+					<button type="button" class="chip" data-help="bots">Bots</button>
+					<button type="button" class="chip" data-help="fabric">Fabric</button>
+					<button type="button" class="chip" data-help="install">Install</button>
+					<button type="button" class="chip" data-help="mining">Mining</button>
+				</div>
+				<form class="help-form" id="help-form">
+					<label class="visually-hidden" for="help-input">Your message</label>
+					<textarea id="help-input" rows="2" placeholder="Type here, or paste a crash log"></textarea>
+					<button class="btn btn-solid" type="submit">Send</button>
+				</form>
+			</article>
+		</section>
 	</main>
 
 	<dialog class="lightbox" id="lightbox">
@@ -397,6 +419,6 @@
 		<p>CarpetMod+ Beta by Javinplayz and sharpymoney_.</p>
 		<p class="fine">Not an official Minecraft service. Not approved by or associated with Mojang or Microsoft.</p>
 	</footer>
-	<script src="js/site.js?v=6"></script>
+	<script src="js/site.js?v=7"></script>
 </body>
 </html>

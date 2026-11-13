@@ -218,5 +218,192 @@
 		};
 	}
 
+	var helpLog = document.getElementById("help-log");
+	var helpForm = document.getElementById("help-form");
+	var helpInput = document.getElementById("help-input");
+	var helpMode = "chat";
+	var discordUrl = "https://discord.gg/jFDACu7ZBE";
+
+	function helpBubble(role, text, link) {
+		if (!helpLog) return;
+		var item = document.createElement("p");
+		item.className = "bubble " + role;
+		item.textContent = text;
+		if (link) {
+			item.appendChild(document.createTextNode(" "));
+			var anchor = document.createElement("a");
+			anchor.href = link.href;
+			anchor.target = "_blank";
+			anchor.rel = "noopener noreferrer";
+			anchor.textContent = link.label;
+			item.appendChild(anchor);
+		}
+		helpLog.appendChild(item);
+		helpLog.scrollTop = helpLog.scrollHeight;
+	}
+
+	function versionParts(value) {
+		return String(value).split(/[^0-9]+/).filter(Boolean).map(function (part) { return Number(part); });
+	}
+
+	function versionAtLeast(value, floor) {
+		var left = versionParts(value);
+		var right = versionParts(floor);
+		var length = Math.max(left.length, right.length);
+		for (var i = 0; i < length; i++) {
+			var diff = (left[i] || 0) - (right[i] || 0);
+			if (diff !== 0) return diff > 0;
+		}
+		return true;
+	}
+
+	function looksLikeLog(text) {
+		return text.length > 80 && /crash|exception|mixin|caused by|description:|at \S+\(/i.test(text);
+	}
+
+	function stillBroken(text) {
+		return /^(no|nope|nah)\b|still (does|crash|not|won)|doesn'?t work|didn'?t work|not working|same (crash|error|problem)|keeps crashing/i.test(text);
+	}
+
+	function wantsHuman(text) {
+		return /^(yes|yeah|yep|sure|human|person)\b|discord|ticket/i.test(text);
+	}
+
+	function reviewCrash(text) {
+		var notes = [];
+		var description = (text.match(/^Description:\s*(.+)$/m) || [])[1];
+		var caused = (text.match(/^Caused by:\s*(.+)$/m) || [])[1];
+		var minecraft = (text.match(/Minecraft Version:\s*([0-9][0-9.]*)/i) || [])[1];
+		var loader = (text.match(/fabricloader:\s*(?:Fabric Loader\s*)?([0-9][0-9.]*)/i) || [])[1];
+		var carpet = (text.match(/carpetmod-plus:\s*CarpetMod\+\s*Beta\s*([0-9][0-9.]*)/i) || [])[1];
+		var hand = /ViewHandMixin|class_759|ItemInHandRenderer/i.test(text);
+		var mixin = /MixinTransformerError|InjectionError|Failed to apply Mixins/i.test(text);
+
+		if (hand) {
+			notes.push("This crash is in the hand display. Another mod edits the same code, often one that changes the item-switch animation. Carpet+BetaV2.20 is built to keep loading when that happens. If this log is from an older jar, download V2.20 and replace the old one.");
+		} else if (mixin) {
+			notes.push("A mixin failed while the game was starting" + (caused ? ": " + caused : "") + ". Another mod is editing the same part of the game. Update to Carpet+BetaV2.20, then remove the other mods and add them back one at a time.");
+		}
+		if (loader) {
+			var loaderOk = versionAtLeast(loader, "0.18.4") && versionAtLeast("0.20.1", loader);
+			notes.push(loaderOk
+				? "Fabric Loader " + loader + " is inside the supported range, 0.18.4 up to 0.20.1."
+				: "Fabric Loader " + loader + " is outside 0.18.4 up to 0.20.1. Use 0.20.1.");
+		}
+		if (minecraft && minecraft !== "1.21.11") {
+			notes.push("This log is from Minecraft " + minecraft + ". Carpet+BetaV2.20 is for 1.21.11.");
+		}
+		if (carpet && !versionAtLeast(carpet, "2.20")) {
+			notes.push("The log shows CarpetMod+ " + carpet + ". The current download is V2.20.");
+		}
+		if (/OutOfMemoryError/i.test(text)) {
+			notes.push("The game ran out of memory. Give Minecraft more RAM in the launcher, or remove a few heavy mods.");
+		}
+		if (/UnsupportedClassVersionError/i.test(text)) {
+			notes.push("The Java version is too old. CarpetMod+ needs Java 21 or newer.");
+		}
+		if (!notes.length) {
+			notes.push("The report" + (description ? " says: " + description + "." : " has an error.") + (caused ? " The cause is: " + caused + "." : "") + " When the cause is not one of the known CarpetMod+ crashes, another mod is the usual reason. Remove other mods, start the game, then add them back.");
+		}
+		notes.push("Tell me if that still doesn't work.");
+		return notes.join("\n\n");
+	}
+
+	function humanOffer() {
+		helpMode = "human";
+		return "Do you want to speak to a human?";
+	}
+
+	function humanSteps() {
+		helpMode = "chat";
+		return {
+			text: "Join the Discord server and open a ticket. Paste your crash log in the ticket so a person can read it.",
+			link: { href: discordUrl, label: "Open Discord" }
+		};
+	}
+
+	function answerTopic(topic) {
+		if (topic === "crashes") {
+			helpMode = "log";
+			return "Paste the crash log here. It is the file named crash-....txt in the crash-reports folder, or the latest.log file.";
+		}
+		if (topic === "bots") {
+			helpMode = "follow";
+			return "On V2.20 a bot stays after it joins. Only /kick removes one. Timeouts and kicks from other mods are ignored. If a bot still leaves, paste the lines from logs/latest.log from just before it left.\n\nTell me if that still doesn't work.";
+		}
+		if (topic === "fabric") {
+			helpMode = "follow";
+			return "Carpet+BetaV2.20 needs Minecraft 1.21.11, Fabric Loader 0.18.4 up to 0.20.1, and Fabric API 0.135.1 up to 0.141.6. Loader 0.20.1 and Fabric API 0.141.6 are the newest. Both downloads are on the Download tab.\n\nTell me if that still doesn't work.";
+		}
+		if (topic === "install") {
+			helpMode = "follow";
+			return "Install Fabric for Minecraft 1.21.11 and pick Loader 0.20.1. Put Fabric API 0.141.6 and Carpet+BetaV2.20.jar in the mods folder. Carpet, the Crit Fix, the Mace Fix, and Modify Player Data are already inside that jar. Launch the Fabric profile.\n\nTell me if that still doesn't work.";
+		}
+		if (topic === "mining") {
+			helpMode = "follow";
+			return "On V2.20, /player mine uses normal survival speed. The tool, Efficiency, and Haste decide how long a block takes, and the block shows cracks. An empty hand is slow. A netherite pick with Efficiency V is still very fast, the same as vanilla.\n\nTell me if that still doesn't work.";
+		}
+		helpMode = "chat";
+		return "I can help with crashes, bots leaving, Fabric versions, installing, and mining. Pick one of those, or tell me you want a person on Discord.";
+	}
+
+	function topicFrom(text) {
+		if (/crash|mixin|won'?t (start|launch)|doesn'?t (start|launch)|game (won'?t|doesn'?t) (open|start)/i.test(text)) return "crashes";
+		if (/\bbots?\b|fake player|leaves|leaving|join and leave/i.test(text)) return "bots";
+		if (/fabric|loader|fabric api/i.test(text)) return "fabric";
+		if (/install|download|\.minecraft/i.test(text)) return "install";
+		if (/mine|mining|netherrack|breaks? instantly/i.test(text)) return "mining";
+		return "";
+	}
+
+	function replyTo(text) {
+		var trimmed = text.trim();
+		if (!trimmed) return null;
+		if (looksLikeLog(trimmed)) {
+			helpMode = "follow";
+			return reviewCrash(trimmed);
+		}
+		if (helpMode === "human") {
+			if (wantsHuman(trimmed)) return humanSteps();
+			if (/^(no|nope|nah)\b/i.test(trimmed)) {
+				helpMode = "chat";
+				return "Okay. Ask another question here whenever you want.";
+			}
+		}
+		if (helpMode === "follow" && stillBroken(trimmed)) return humanOffer();
+		if (helpMode === "log") {
+			var named = topicFrom(trimmed);
+			if (named && named !== "crashes") return answerTopic(named);
+			return "That does not look like a crash log yet. Paste the full report, from the line that says Minecraft Crash Report.";
+		}
+		if (/human|person|discord|ticket/i.test(trimmed)) return humanSteps();
+		return answerTopic(topicFrom(trimmed));
+	}
+
+	function helpAsk(text) {
+		helpBubble("user", text);
+		var reply = replyTo(text);
+		if (!reply) return;
+		if (typeof reply === "string") helpBubble("bot", reply);
+		else helpBubble("bot", reply.text, reply.link);
+	}
+
+	if (helpLog && helpForm && helpInput) {
+		helpBubble("bot", "What do you need help with the mod?");
+		document.querySelectorAll("[data-help]").forEach(function (button) {
+			button.addEventListener("click", function () {
+				helpBubble("user", button.textContent);
+				helpBubble("bot", answerTopic(button.getAttribute("data-help")));
+			});
+		});
+		helpForm.addEventListener("submit", function (event) {
+			event.preventDefault();
+			var text = helpInput.value;
+			if (!text.trim()) return;
+			helpInput.value = "";
+			helpAsk(text);
+		});
+	}
+
 	paint();
 })();

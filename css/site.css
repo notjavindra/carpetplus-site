@@ -283,6 +283,58 @@ code {
 
 .card:hover { border-color: var(--line-strong); }
 
+.help-chat { min-height: 560px; max-height: 72vh; }
+.help-log {
+	flex: 1;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 16px;
+	min-height: 280px;
+}
+.help-chat { display: flex; flex-direction: column; }
+.bubble {
+	max-width: min(78%, 640px);
+	margin: 0;
+	padding: 12px 14px;
+	border-radius: 14px;
+	white-space: pre-wrap;
+	font-size: 0.9rem;
+	line-height: 1.45;
+}
+.bubble.bot { align-self: flex-start; background: var(--tile); border: 1px solid var(--line); }
+.bubble.user { align-self: flex-end; background: var(--btn); color: var(--btn-ink); }
+.bubble a { color: inherit; }
+.help-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.chip {
+	border: 1px solid var(--line);
+	background: transparent;
+	color: var(--ink);
+	border-radius: 999px;
+	padding: 7px 12px;
+	font: inherit;
+	font-size: 0.84rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+.chip:hover { border-color: var(--line-strong); background: var(--tile); }
+.help-form { display: flex; gap: 8px; align-items: flex-end; margin-top: 14px; }
+.help-form textarea {
+	flex: 1;
+	resize: vertical;
+	min-height: 48px;
+	max-height: 180px;
+	padding: 12px 14px;
+	border-radius: 12px;
+	border: 1px solid var(--line);
+	background: var(--tile);
+	color: var(--ink);
+	font: inherit;
+	font-size: 0.9rem;
+}
+.help-form textarea:focus { outline: 2px solid var(--badge); outline-offset: 1px; }
+
 .notice { margin: -8px 0 24px; }
 .notice p { margin: 10px 0 0; color: var(--muted); font-size: 0.9rem; }
 .notice strong { color: var(--ink); }
