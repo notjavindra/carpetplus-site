@@ -280,9 +280,9 @@
 		var mixin = /MixinTransformerError|InjectionError|Failed to apply Mixins/i.test(text);
 
 		if (hand) {
-			notes.push("This crash is in the hand display. Another mod edits the same code, often one that changes the item-switch animation. Carpet+BetaV2.20 is built to keep loading when that happens. If this log is from an older jar, download V2.20 and replace the old one.");
+			notes.push("This crash is in the hand display. Another mod edits the same code, often one that changes the item-switch animation. Carpet+BetaV2.23 is built to keep loading when that happens. If this log is from an older jar, download V2.23 and replace the old one.");
 		} else if (mixin) {
-			notes.push("A mixin failed while the game was starting" + (caused ? ": " + caused : "") + ". Another mod is editing the same part of the game. Update to Carpet+BetaV2.20, then remove the other mods and add them back one at a time.");
+			notes.push("A mixin failed while the game was starting" + (caused ? ": " + caused : "") + ". Another mod is editing the same part of the game. Update to Carpet+BetaV2.23, then remove the other mods and add them back one at a time.");
 		}
 		if (loader) {
 			var loaderOk = versionAtLeast(loader, "0.18.4") && versionAtLeast("0.20.1", loader);
@@ -291,10 +291,10 @@
 				: "Fabric Loader " + loader + " is outside 0.18.4 up to 0.20.1. Use 0.20.1.");
 		}
 		if (minecraft && minecraft !== "1.21.11") {
-			notes.push("This log is from Minecraft " + minecraft + ". Carpet+BetaV2.20 is for 1.21.11.");
+			notes.push("This log is from Minecraft " + minecraft + ". Carpet+BetaV2.23 is for 1.21.11.");
 		}
-		if (carpet && !versionAtLeast(carpet, "2.20")) {
-			notes.push("The log shows CarpetMod+ " + carpet + ". The current download is V2.20.");
+		if (carpet && !versionAtLeast(carpet, "2.23")) {
+			notes.push("The log shows CarpetMod+ " + carpet + ". The current download is V2.23.");
 		}
 		if (/OutOfMemoryError/i.test(text)) {
 			notes.push("The game ran out of memory. Give Minecraft more RAM in the launcher, or remove a few heavy mods.");
@@ -329,19 +329,19 @@
 		}
 		if (topic === "bots") {
 			helpMode = "follow";
-			return "On V2.20 a bot stays after it joins. Only /kick removes one. Timeouts and kicks from other mods are ignored. If a bot still leaves, paste the lines from logs/latest.log from just before it left.\n\nTell me if that still doesn't work.";
+			return "On V2.23 a bot stays after it joins. Only /kick removes one. Timeouts and kicks from other mods are ignored. If a bot still leaves, paste the lines from logs/latest.log from just before it left.\n\nTell me if that still doesn't work.";
 		}
 		if (topic === "fabric") {
 			helpMode = "follow";
-			return "Carpet+BetaV2.20 needs Minecraft 1.21.11, Fabric Loader 0.18.4 up to 0.20.1, and Fabric API 0.135.1 up to 0.141.6. Loader 0.20.1 and Fabric API 0.141.6 are the newest. Both downloads are on the Download tab.\n\nTell me if that still doesn't work.";
+			return "Carpet+BetaV2.23 needs Minecraft 1.21.11, Fabric Loader 0.18.4 up to 0.20.1, and Fabric API 0.135.1 up to 0.141.6. Loader 0.20.1 and Fabric API 0.141.6 are the newest. Both downloads are on the Download tab.\n\nTell me if that still doesn't work.";
 		}
 		if (topic === "install") {
 			helpMode = "follow";
-			return "Install Fabric for Minecraft 1.21.11 and pick Loader 0.20.1. Put Fabric API 0.141.6 and Carpet+BetaV2.20.jar in the mods folder. Carpet, the Crit Fix, the Mace Fix, and Modify Player Data are already inside that jar. Launch the Fabric profile.\n\nTell me if that still doesn't work.";
+			return "Install Fabric for Minecraft 1.21.11 and pick Loader 0.20.1. Put Fabric API 0.141.6 and Carpet+BetaV2.23.jar in the mods folder. Carpet, the Crit Fix, the Mace Fix, and Modify Player Data are already inside that jar. Launch the Fabric profile.\n\nTell me if that still doesn't work.";
 		}
 		if (topic === "mining") {
 			helpMode = "follow";
-			return "On V2.20, /player mine uses normal survival speed. The tool, Efficiency, and Haste decide how long a block takes, and the block shows cracks. An empty hand is slow. A netherite pick with Efficiency V is still very fast, the same as vanilla.\n\nTell me if that still doesn't work.";
+			return "On V2.23, /player mine uses normal survival speed. The tool, Efficiency, and Haste decide how long a block takes, and the block shows cracks. An empty hand is slow. A netherite pick with Efficiency V is still very fast, the same as vanilla.\n\nTell me if that still doesn't work.";
 		}
 		helpMode = "chat";
 		return "I can help with crashes, bots leaving, Fabric versions, installing, and mining. Pick one of those, or tell me you want a person on Discord.";
