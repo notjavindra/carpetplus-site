@@ -183,6 +183,16 @@ code {
 	padding: 18px 0 56px;
 }
 
+.release-banner {
+	display: block;
+	width: 100%;
+	height: auto;
+	margin: 0 0 18px;
+	border-radius: 16px;
+	border: 1px solid var(--line);
+	background: #2b2b2b;
+}
+
 .dash-title {
 	margin: 0 0 12px;
 	font-size: 2rem;
@@ -397,8 +407,7 @@ code {
 }
 
 .tiles-two { grid-template-columns: 1fr 1fr; }
-
-.tile {
+.tiles-four { grid-template-columns: repeat(4, 1fr); }
 	padding: 12px 14px;
 	border: 1px solid var(--line);
 	border-radius: 10px;
@@ -719,6 +728,7 @@ html[data-motion="off"] *::after {
 
 @media (max-width: 860px) {
 	.grid-main, .grid-even, .grid-three { grid-template-columns: 1fr; }
+	.tiles-four { grid-template-columns: 1fr 1fr; }
 	.card-wide { grid-column: auto; }
 	.theme-grid { grid-template-columns: repeat(3, 1fr); }
 	.more { columns: 1; }
@@ -727,7 +737,7 @@ html[data-motion="off"] *::after {
 @media (max-width: 600px) {
 	.topbar { grid-template-columns: 1fr auto; gap: 12px; }
 	.toplinks { grid-column: 1 / -1; grid-row: 2; gap: 20px; overflow-x: auto; }
-	.tiles { grid-template-columns: 1fr; }
+	.tiles, .tiles-four { grid-template-columns: 1fr; }
 	.tiles-two { grid-template-columns: 1fr 1fr; }
 	.theme-grid { grid-template-columns: 1fr 1fr; }
 	.tabs { display: flex; }
