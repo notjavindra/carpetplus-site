@@ -408,8 +408,10 @@ code {
 
 .tiles-two { grid-template-columns: 1fr 1fr; }
 .tiles-four { grid-template-columns: repeat(4, 1fr); }
+
+.tile {
 	padding: 12px 14px;
-	border: 1px solid var(--line);
+	border: 1px solid var(--line-strong);
 	border-radius: 10px;
 	background: var(--tile);
 }
